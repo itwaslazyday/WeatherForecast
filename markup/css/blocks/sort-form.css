@@ -1,13 +1,13 @@
 .sort-form {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .sort-form form {
   display: flex;
-  min-width: 400px;
+  width: 400px;
   padding: 12px 20px;
-
-  background-color: var(--color-blue-main);
+  border-radius: 7px;
 }
 
 .sort-form__group {
@@ -25,7 +25,6 @@
 
 .sort-form__group > div {
   margin-right: 2px;
-  margin-bottom: 2px;
 }
 
 .sort-form__group > div:last-child {

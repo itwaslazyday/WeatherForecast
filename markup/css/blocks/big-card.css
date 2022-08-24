@@ -3,23 +3,27 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 172px;
-
-  border-radius: 2px;
-  outline: none;
+  color: #fff;
+  border-radius: 7px;
   cursor: pointer;
-
   transition: filter var(--transition-base);
+  outline: none;
+  background: url(../../img/sunny.jpeg) center no-repeat;
+  background-size: cover;
+  /* backdrop-filter: blur(5px); */
+}
+
+.big-card:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 .big-card__header {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 20px 20px 14px 20px;
-
-  background-color: var(--color-white);
-
+  padding: 14px 20px;
+  border-radius: 7px 7px 0 0;
+  backdrop-filter: blur(2px);
   transition: background-color var(--transition-base);
 }
 
@@ -36,10 +40,9 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 16px 24px 24px 20px;
-
-  background-color: var(--color-light-grey);
-
+  padding: 16px 24px 16px 20px;
+  border-radius: 0 0 7px 7px;
+  backdrop-filter: blur(2px);
   transition: background-color var(--transition-base);
 }
 
@@ -62,15 +65,11 @@
 .big-card__wind {
   display: flex;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 15px;
 }
 
 .big-card__wind-info {
   margin-left: 10px;
-
-  color: var(--color-text-light-blue);
-
-  opacity: 0.8;
 
   transition: color var(--transition-base);
 }

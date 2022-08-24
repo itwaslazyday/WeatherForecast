@@ -9,42 +9,32 @@
 .input-wrapper--search input {
   width: 254px;
   padding: 8px 20px;
-
-  color: var(--color-text-input);
-
-  background-color: var(--color-input-base);
+  height: 40px;
+  background-color: inherit;
   border: none;
-  outline: none;
-
+  border-radius: 5px;
+  outline: 1px solid ghostwhite;
+  color: #fff;
   transition: background-color var(--transition-base);
 }
 
+.input-wrapper--search input::placeholder {
+  color: #fff;
+  opacity: 0.8;
+}
+
 .input-wrapper--search input:hover {
-  background-color: var(--color-input-hover);
+  box-shadow: 0 4px 10px rgba(11, 23, 78, 0.5);
+}
+
+.input-wrapper--search input:focus {
+  background-color: inherit;
+  outline: 1px solid ghostwhite;
 }
 
 .input-wrapper--search input:focus::placeholder {
   opacity: 0;
-}
-
-.input-wrapper--search input:focus::-ms-input-placeholder {
-  opacity: 0;
-}
-
-.input-wrapper--search input:focus {
-  background-color: var(--color-input-focus);
-}
-
-.input-wrapper--search input::placeholder {
-  color: var(--color-text-placeholder);
-
-  transition: opacity var(--transition-base);
-}
-
-.input-wrapper--search input::-ms-input-placeholder {
-  color: var(--color-text-placeholder);
-
-  transition: opacity var(--transition-base);
+  color: #fff;
 }
 
 .input-wrapper--radio label,
@@ -55,8 +45,9 @@
   width: 40px;
   height: 40px;
 
-  background-color: var(--color-label-base);
-  border-radius: 2px;
+  background-color: inherit;
+  outline: 1px solid ghostwhite;
+  border-radius: 3px;
   cursor: pointer;
 
   transition: background-color var(--transition-base),
@@ -72,7 +63,6 @@
 
 .input-wrapper--radio label:hover,
 .input-wrapper--checkbox label:hover {
-  background-color: var(--color-label-hover);
   box-shadow: 0 4px 10px rgba(11, 23, 78, 0.5);
 }
 
@@ -116,7 +106,7 @@
 
 .input-wrapper--radio input:checked + label,
 .input-wrapper--checkbox input:checked + label {
-  background-color: var(--color-label-active);
+  background-color: ghostwhite;
   box-shadow: none;
 }
 
