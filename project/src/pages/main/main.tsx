@@ -1,7 +1,7 @@
-import BigCardsList from '../../components/big-cards-list/big-cards-list';
-import Map from '../../components/map/map';
-import SearchForm from '../../components/search-form/search-form';
-import Sort from '../../components/sort/sort';
+import BigCard from 'components/big-card/big-card';
+import Map from 'components/map/map';
+import SearchForm from 'components/search-form/search-form';
+import Sort from 'components/sort/sort';
 
 export default function Main(): JSX.Element {
 
@@ -18,7 +18,9 @@ export default function Main(): JSX.Element {
           </section>
           <section className="weather-content__result">
             <h2 className="visually-hidden">Результаты сортировки</h2>
-            <BigCardsList />
+            <div className="weather-content__big-cards">
+              <BigCard />
+            </div>
           </section>
         </div>
         <div className="weather-app__map weather-map">

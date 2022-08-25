@@ -8,7 +8,7 @@
   cursor: pointer;
   transition: filter var(--transition-base);
   outline: none;
-  background: url(../../img/sunny.jpeg) center no-repeat;
+  background: url(/img/sunny.jpeg) center no-repeat;
   background-size: cover;
   /* backdrop-filter: blur(5px); */
 }
