@@ -6,16 +6,14 @@ import {AppRoute} from 'const';
 function App(): JSX.Element {
   return (
     <Routes>
-      <Route path="/">
-        <Route
-          index
-          element={<Main />}
-        />
-        <Route
-          path={AppRoute.NotFound}
-          element={<NotFoundScreen />}
-        />
-      </Route>
+      <Route
+        path={AppRoute.Main}
+        element={<Main />}
+      />
+      <Route
+        path={AppRoute.NotFound}
+        element={<NotFoundScreen />}
+      />
     </Routes>
   );
 }
