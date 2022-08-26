@@ -5,6 +5,7 @@ export default function BigCard(): JSX.Element {
       <div className="big-card__header">
         <span className="icon icon--strips-big"></span>
         <span className="big-card__city">Великий Новгород</span>
+        <span className="big-card__time">22:40</span>
       </div>
       <div className="big-card__content">
         <div className="big-card__content-wrapper">
