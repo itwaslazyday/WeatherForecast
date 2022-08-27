@@ -20,6 +20,8 @@
 .big-card__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   width: 100%;
   padding: 14px 20px;
   border-radius: 7px 7px 0 0;
@@ -28,12 +30,15 @@
 }
 
 .big-card__city {
-  margin-left: 20px;
-
   font-size: 30px;
   line-height: 36px;
-
   transition: color var(--transition-base);
+}
+
+.big-card__time {
+  margin-right: 15px;
+  font-size: 30px;
+  line-height: 36px;
 }
 
 .big-card__content {
