@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
+  max-height: 100%;
 }
 
 .weather-content__small-cards,
@@ -26,11 +26,6 @@
 }
 
 .weather-content__help {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-
   width: 100%;
   padding-right: 65px;
   padding-left: 65px;

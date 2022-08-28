@@ -1,25 +1,44 @@
-export default function BigCard(): JSX.Element {
+import BigCardFull from 'components/big-card-full/big-card-full';
+import BigCardIcon from 'components/big-card-icon/big-card-icon';
+import { useState } from 'react';
+import { Card } from 'types/card';
+import { convertToCelsius, getWindDirection } from '../../utils/big-card';
+
+type BigCardProps = {
+  weatherCard: Card
+}
+
+export default function BigCard({ weatherCard }: BigCardProps): JSX.Element {
+  const [isFull, setFull] = useState<boolean>(false);
+  const { name, main, weather, wind } = weatherCard;
 
   return (
-    <div className="big-card">
+    <div
+      className="big-card"
+      onClick={() => setFull((prev) => !prev)}
+    >
       <div className="big-card__header">
         <span className="icon icon--strips-big"></span>
-        <span className="big-card__city">Великий Новгород</span>
+        <span className="big-card__city">{name}</span>
         <span className="big-card__time">22:40</span>
       </div>
       <div className="big-card__content">
         <div className="big-card__content-wrapper">
           <div className="big-card__weather-conditions">
-            <span className="icon icon--rainy"></span>
-            <span className="icon icon--meteor-shower"></span>
-            <span className="icon icon--tornado"></span>
+            {
+              isFull ?
+                <BigCardFull weatherCard={weatherCard} /> :
+                weather.map((condition) => <BigCardIcon key={condition.id} iconName={condition.icon} />)
+            }
           </div>
           <div className="big-card__wind">
             <span className="icon icon--wind"></span>
-            <span className="big-card__wind-info">Ветер ЮВ, 0-1 м/с</span>
+            <span className="big-card__wind-info">Ветер {getWindDirection(wind.deg)}, {wind.speed} м/с</span>
           </div>
         </div>
-        <span className="big-card__temperature">+12°</span>
+        {
+          !isFull && <span className="big-card__temperature">{convertToCelsius(main.temp)}</span>
+        }
       </div>
     </div>
   );

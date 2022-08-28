@@ -38,7 +38,7 @@
 
   background-image: url("/img/icon/icon-strips-big.svg");
 }
-
+/*
 .icon--rainy {
   background-image: url("/img/icon/icon-rainy.svg");
 }
@@ -65,8 +65,9 @@
 
 .icon--metorite {
   background-image: url("/img/icon/icon-metorite.svg");
-}
+} */
 
 .icon--wind {
   background-image: url("/img/icon/icon-wind.svg");
 }
+

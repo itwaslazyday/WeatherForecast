@@ -29,6 +29,12 @@
   transition: background-color var(--transition-base);
 }
 
+.big-card__time {
+  margin-right: 15px;
+  font-size: 30px;
+  line-height: 36px;
+}
+
 .big-card__city {
   font-size: 30px;
   line-height: 36px;
@@ -142,3 +148,20 @@
 .big-card--empty.hidden-block {
   display: none;
 }
+
+.big-card__full {
+  display: flex;
+  flex-direction: column;
+}
+
+.big-card__full-item {
+  display: flex;
+  align-items: center;
+}
+
+/* .big-card__full .big-card__temperature {
+  margin: 0 auto;
+} */
+/* .big-card__feels {
+  margin: 0 auto;
+} */
