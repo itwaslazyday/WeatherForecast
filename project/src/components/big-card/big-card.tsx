@@ -14,7 +14,7 @@ export default function BigCard({ weatherCard }: BigCardProps): JSX.Element {
 
   return (
     <div
-      className="big-card"
+      className={`big-card ${isFull && 'big-card--full'}`}
       onClick={() => setFull((prev) => !prev)}
     >
       <div className="big-card__header">
@@ -31,10 +31,14 @@ export default function BigCard({ weatherCard }: BigCardProps): JSX.Element {
                 weather.map((condition) => <BigCardIcon key={condition.id} iconName={condition.icon} />)
             }
           </div>
-          <div className="big-card__wind">
-            <span className="icon icon--wind"></span>
-            <span className="big-card__wind-info">Ветер {getWindDirection(wind.deg)}, {wind.speed} м/с</span>
-          </div>
+          {
+            !isFull &&
+            <div className="big-card__wind">
+              <span className="icon icon--wind"></span>
+              <span className="big-card__wind-info">Ветер {getWindDirection(wind.deg)}, {wind.speed} м/с</span>
+            </div>
+          }
+
         </div>
         {
           !isFull && <span className="big-card__temperature">{convertToCelsius(main.temp)}</span>

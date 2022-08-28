@@ -5,55 +5,55 @@ const weatherConditions: Weather[] = [
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clear',
-    description: 'clear sky',
+    description: 'Ясно',
     icon: '01d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clouds',
-    description: 'few clouds',
+    description: 'малооблачно',
     icon: '02d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clouds',
-    description: 'scattered clouds',
+    description: 'облачно',
     icon: '03d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clouds',
-    description: 'broken clouds',
+    description: 'облачно с прояснениями',
     icon: '04d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Rain',
-    description: 'shower rain',
+    description: 'ливень',
     icon: '09d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Rain',
-    description: 'rain',
+    description: 'дождь',
     icon: '10d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Thunderstorm',
-    description: 'thunderstorm',
+    description: 'гроза',
     icon: '11d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Snow',
-    description: 'snow',
+    description: 'снег',
     icon: '13d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Drizzle',
-    description: 'mist',
+    description: 'туман',
     icon: '50d'
   },
 ];
@@ -66,8 +66,7 @@ const makeFakeWeatherCard = () => (
       lat: +address.latitude(...Array(2), 2)
     },
     weather: [
-      weatherConditions[2],
-      weatherConditions[0],
+      weatherConditions[2]
     ],
     base: 'stations',
     main: {
@@ -86,7 +85,7 @@ const makeFakeWeatherCard = () => (
     clouds: {
       all: datatype.number({ min: 1, max: 100 }) //cloudness, %
     },
-    dt: datatype.number({ min: 1650, max: 1700 }), //Time of data calculation, unix, UTC
+    dt: 1560350645, //Time of data calculation, unix, UTC
     sys: {
       type: 1,
       id: 5122,
