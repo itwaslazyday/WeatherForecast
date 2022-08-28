@@ -1,6 +1,5 @@
 import BigCard from 'components/big-card/big-card';
 import Map from 'components/map/map';
-import SearchForm from 'components/search-form/search-form';
 import Sort from 'components/sort/sort';
 
 export default function Main(): JSX.Element {
@@ -13,7 +12,6 @@ export default function Main(): JSX.Element {
           <section className="sort-search">
             <div className="sort-search__wrapper">
               <Sort />
-              <SearchForm />
             </div>
           </section>
           <section className="weather-content__result">
@@ -23,9 +21,7 @@ export default function Main(): JSX.Element {
             </div>
           </section>
         </div>
-        <div className="weather-app__map weather-map">
-          <Map />
-        </div>
+        <Map />
       </section>
     </main>
   );
