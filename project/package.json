@@ -30,7 +30,11 @@
       "react-app",
       "react-app/jest",
       "htmlacademy/react-typescript"
-    ]
+    ],
+    "rules": {
+      "no-console": 1,
+      "@typescript-eslint/no-unused-vars": 0
+    }
   },
   "browserslist": {
     "production": [
