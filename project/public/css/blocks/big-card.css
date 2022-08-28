@@ -13,6 +13,10 @@
   /* backdrop-filter: blur(5px); */
 }
 
+.big-card--full {
+  background-image: none;
+}
+
 .big-card:not(:last-child) {
   margin-bottom: 10px;
 }
@@ -27,6 +31,12 @@
   border-radius: 7px 7px 0 0;
   backdrop-filter: blur(2px);
   transition: background-color var(--transition-base);
+}
+
+.big-card__time {
+  margin-right: 15px;
+  font-size: 30px;
+  line-height: 36px;
 }
 
 .big-card__city {
@@ -142,3 +152,20 @@
 .big-card--empty.hidden-block {
   display: none;
 }
+
+.big-card__full {
+  display: flex;
+  flex-direction: column;
+}
+
+.big-card__full-condition {
+  display: flex;
+  align-items: center;
+}
+
+.big-card__full-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+

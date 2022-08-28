@@ -39,34 +39,7 @@
   background-image: url("/img/icon/icon-strips-big.svg");
 }
 
-.icon--rainy {
-  background-image: url("/img/icon/icon-rainy.svg");
-}
-
-.icon--sunny {
-  background-image: url("/img/icon/icon-sunny.svg");
-}
-
-.icon--cloudy {
-  background-image: url("/img/icon/icon-cloudy.svg");
-}
-
-.icon--snowy {
-  background-image: url("/img/icon/icon-snowy.svg");
-}
-
-.icon--stormy {
-  background-image: url("/img/icon/icon-stormy.svg");
-}
-
-.icon--blizzard {
-  background-image: url("/img/icon/icon-blizzard.svg");
-}
-
-.icon--metorite {
-  background-image: url("/img/icon/icon-metorite.svg");
-}
-
 .icon--wind {
   background-image: url("/img/icon/icon-wind.svg");
 }
+
