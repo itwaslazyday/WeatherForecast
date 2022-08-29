@@ -1,5 +1,6 @@
 import { datatype, address } from 'faker';
 import { Weather } from 'types/card';
+import { getRandomInteger } from './common';
 
 const weatherConditions: Weather[] = [
   {
@@ -66,7 +67,7 @@ const makeFakeWeatherCard = () => (
       lat: +address.latitude(...Array(2), 2)
     },
     weather: [
-      weatherConditions[2]
+      weatherConditions[getRandomInteger(0, 6)]
     ],
     base: 'stations',
     main: {
@@ -101,6 +102,6 @@ const makeFakeWeatherCard = () => (
   }
 );
 
-const makeFakeWeatherCards = () => new Array(10).fill(null).map(() => makeFakeWeatherCard());
+const makeFakeWeatherCards = () => new Array(3).fill(null).map(() => makeFakeWeatherCard());
 
 export { makeFakeWeatherCard, makeFakeWeatherCards };
