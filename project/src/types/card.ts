@@ -5,13 +5,8 @@ export type Weather = {
   icon: string
 }
 
-export type Card = {
-  coord: {
-    lon: number
-    lat: number
-  }
-  weather: Weather[]
-  base: string
+export type Condition = {
+  dt: number
   main: {
     temp: number
     feelsLike: number
@@ -19,26 +14,43 @@ export type Card = {
     tempMax: number
     pressure: number
     humidity: number
-  }
-  visibility: number
-  wind: {
-    speed: number
-    deg: number
-  }
+    seaLevel: number
+    grndLevel: number
+    tempKf: number
+  },
+  weather: Weather[]
   clouds: {
     all: number
   }
-  dt: number
+  wind: {
+    speed: number
+    deg: number
+    gust: number
+  }
+  visibility: number
+  pop: number
   sys: {
-    type: number
+    pod: string
+  },
+  dtTxt: string
+}
+
+export type WeatherCard = {
+  cod: number
+  message: number
+  cnt: number
+  list: Condition[]
+  city: {
     id: number
-    message: number
+    name: string
+    coord: {
+      lat: number
+      lon: number
+    }
     country: string
+    population: number
+    timezone: number
     sunrise: number
     sunset: number
   }
-  timezone: number
-  id: number
-  name: string
-  cod: number
 }
