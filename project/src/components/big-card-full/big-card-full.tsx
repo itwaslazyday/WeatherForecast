@@ -1,22 +1,70 @@
-import FullInfo from 'components/full-info/full-info';
-import { Card } from 'types/card';
-import { makeFakeWeatherCards } from 'utils/mocks';
+import ConditionFullIcon from 'components/condition-full-icon/condition-full-icon';
+import { Weather, WeatherCard } from 'types/card';
+import { convertToCelsius } from 'utils/big-card';
+import { getRandomInteger, humanizeTime } from 'utils/common';
 
 type BigCardFullProps = {
-  weatherCard: Card
+  weatherCard: WeatherCard
 }
 
 export default function BigCardFull({ weatherCard }: BigCardFullProps): JSX.Element {
-  const extraConditions = makeFakeWeatherCards();
+  const { list } = weatherCard;
+  const currentDay = list[0];
+  const { main, wind, visibility, clouds, dt, weather } = currentDay;
+  const { feelsLike, pressure, humidity } = main;
+
+  const weatherProperties = {
+    'Ощущается как': { id: 0, value: convertToCelsius(feelsLike), unit: '' },
+    'Давление': { id: 1, value: pressure, unit: 'мм рт.ст' },
+    'Влажность': { id: 2, value: humidity, unit: '%' },
+    'Ветер': { id: 3, value: wind.speed, unit: 'м/с' },
+    'Видимость': { id: 4, value: visibility, unit: 'м' },
+    'Облачность': { id: 5, value: clouds.all, unit: '%' }
+  };
+
+  const makeCardProperties = () => (
+    Object.entries(weatherProperties).map((property) => {
+      const { id, value, unit } = property[1];
+      return (
+        <div className="big-card__property-wrapper" key={id}>
+          <span className="big-card__property-header">{property[0]}</span>
+          <span className="big-card__property">{value} <small>{unit}</small></span>
+        </div>);
+    })
+  );
+
+  // const makeFutureForecast = () => (
+  //   new Array(3).fill(weatherCard).map((day) => {
+  //     const { tempMin, tempMax } = day.main;
+  //     const { icon } = day.weather[0];
+  //     const { id } = day.sys;
+  //     return (
+  //       <div className="big-card__future-wrapper" key={id + getRandomInteger(0, 100)}>
+  //         <span className="big-card__future-day big-card__future-property">Вт</span>
+  //         <span className="big-card__future-icon big-card__future-property">
+  //           <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} width='50' height='50' alt="" />
+  //         </span>
+  //         <span className="big-card__future-temp big-card__future-property">{convertToCelsius(tempMin)} ... {convertToCelsius(tempMax)}</span>
+  //       </div>);
+  //   })
+  // );
 
   return (
     <div className="big-card__full">
-      <FullInfo weatherCard={weatherCard} />
-      {/* <div className="big-card__extra">
-        {
-          extraConditions.map((card) => <FullInfo key={card.id} weatherCard={card} />)
-        }
-      </div> */}
+      <div className="big-card__full-item">
+        <span className="big-card__full-date">{humanizeTime(dt)}</span>
+        <span className="big-card__temperature big-card__temperature--font">
+          {`${convertToCelsius(main.tempMin)}... ${convertToCelsius(main.tempMax)}`}
+        </span>
+        {weather.map((condition) => <ConditionFullIcon key={condition.id} weatherCondition={condition} />)}
+        <div className="big-card__future">
+          <span className="big-card__future-header">Прогноз на три дня</span>
+          {/* {makeFutureForecast()} */}
+        </div>
+        <div className="big-card__properties">
+          {makeCardProperties()}
+        </div>
+      </div>
     </div>
   );
 }

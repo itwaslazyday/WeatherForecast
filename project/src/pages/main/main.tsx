@@ -1,10 +1,10 @@
 import BigCard from 'components/big-card/big-card';
 import Map from 'components/map/map';
 import Sort from 'components/sort/sort';
-import { makeFakeWeatherCards } from 'utils/mocks';
+import { makeFakeWeatherCard, FakeCityType } from 'utils/mocks';
 
 export default function Main(): JSX.Element {
-  const cards = makeFakeWeatherCards();
+  const cards = [makeFakeWeatherCard(FakeCityType[1])];
 
   return (
     <main>
@@ -22,7 +22,7 @@ export default function Main(): JSX.Element {
 
               {
                 cards.length !== 0 ?
-                  cards.map((card) => <BigCard key={card.id} weatherCard={card} />) :
+                  cards.map((card) => <BigCard key={card.city.id} weatherCard={card} />) :
                   <div className="weather-content__help">Выберите город, погода в котором вам интересна</div>
               }
             </div>
