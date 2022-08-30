@@ -12,12 +12,11 @@ export default function BigCardFull({ weatherCard }: BigCardFullProps): JSX.Elem
   return (
     <div className="big-card__full">
       <FullInfo weatherCard={weatherCard} />
-      {/* Ниже контейнер для дополнительных дней */}
-      <div className="big-card__extra">
+      {/* <div className="big-card__extra">
         {
           extraConditions.map((card) => <FullInfo key={card.id} weatherCard={card} />)
         }
-      </div>
+      </div> */}
     </div>
   );
 }

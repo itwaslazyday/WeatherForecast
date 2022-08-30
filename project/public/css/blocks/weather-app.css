@@ -13,10 +13,9 @@
   top: 5%;
   left: 5%;
   flex-shrink: 0;
-  width: 350px;
+  width: 325px;
   min-height: 238px;
   overflow: hidden;
-  width: 400px;
   min-height: 230px;
   max-height: 90%;
   overflow: auto;
