@@ -1,10 +1,13 @@
 import BigCard from 'components/big-card/big-card';
 import Map from 'components/map/map';
 import Sort from 'components/sort/sort';
-import { makeFakeWeatherCard, FakeCityType } from 'utils/mocks';
+import {makeFakeWeatherCard, FakeCityType, getFutureDaysTemps} from 'utils/mocks';
 
 export default function Main(): JSX.Element {
-  const cards = [makeFakeWeatherCard(FakeCityType[1])];
+  const weatherCard = makeFakeWeatherCard(FakeCityType[1]);
+  console.log('weatherCard', weatherCard);
+  const futureDaysTemps = getFutureDaysTemps(weatherCard);
+  console.log('getFutureDaysTemps', futureDaysTemps);
 
   return (
     <main>
@@ -21,8 +24,8 @@ export default function Main(): JSX.Element {
             <div className="weather-content__big-cards">
 
               {
-                cards.length !== 0 ?
-                  cards.map((card) => <BigCard key={card.city.id} weatherCard={card} />) :
+                [weatherCard].length !== 0 ?
+                  [weatherCard].map((card) => <BigCard key={card.city.id} weatherCard={card} futureDaysTemps={futureDaysTemps}/>) :
                   <div className="weather-content__help">Выберите город, погода в котором вам интересна</div>
               }
             </div>
