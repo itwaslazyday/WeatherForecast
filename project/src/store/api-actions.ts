@@ -1,10 +1,10 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 // import {AppDispatch, State} from '../types/state.js';
 // import {Forecast, Coord} from '../types/types.js';
 // import { API_KEY } from 'services/api.js';
 
-// export const fetchCityAction = createAsyncThunk<Forecast, Coord, {
+// export const fetchWeatherAction = createAsyncThunk<Forecast, Coord, {
 //   dispatch: AppDispatch,
 //   state: State,
 //   extra: AxiosInstance
