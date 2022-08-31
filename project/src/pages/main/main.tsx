@@ -7,9 +7,6 @@ import { getWeatherCards } from 'store/data-process/selector';
 
 export default function Main(): JSX.Element {
   const weatherCards = useAppSelector(getWeatherCards);
-  console.log('weatherCard', weatherCards);
-  const futureDaysTemps = getFutureDaysTemps(weatherCards[0]);
-  console.log('getFutureDaysTemps', futureDaysTemps);
 
   return (
     <main>
@@ -27,7 +24,7 @@ export default function Main(): JSX.Element {
 
               {
                 weatherCards.length !== 0 ?
-                  weatherCards.map((card) => <BigCard key={card.city.id} weatherCard={card} futureDaysTemps={futureDaysTemps} />) :
+                  weatherCards.map((card) => <BigCard key={card.city.id} weatherCard={card} futureDaysTemps={getFutureDaysTemps(card)} />) :
                   <div className="weather-content__help">Выберите город, погода в котором вам интересна</div>
               }
             </div>

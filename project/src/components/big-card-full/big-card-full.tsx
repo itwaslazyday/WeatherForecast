@@ -5,13 +5,13 @@ import { getRandomInteger, humanizeTime } from 'utils/common';
 
 type BigCardFullProps = {
   weatherCard: WeatherCard;
-  futureDaysTemps: {[key: string]: number[]};
+  futureDaysTemps: {[key: string]: {temps: {tempMin: number, tempMax: number}, icon: string}} ;
 
 }
 
 export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFullProps): JSX.Element {
   const { list } = weatherCard;
-  const currentDay = list[0]; //Здесь все же нужно брать не первый элемент массива, а сделать поиск по текущей дате.
+  const currentDay = list[1];
   const { main, wind, visibility, clouds, dt, weather } = currentDay;
   const { feelsLike, pressure, humidity } = main;
 
@@ -37,14 +37,13 @@ export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFul
 
   const makeFutureForecast = () => (
     Object.entries(futureDaysTemps).map((day, idx) => {
-      const tempMin = day[1][0];
-      const tempMax = day[1][1];
+      const {tempMin, tempMax} = day[1].temps;
+      const icon = day[1].icon;
       return (
-        // eslint-disable-next-line react/no-array-index-key
-        <div className="big-card__future-wrapper" key={idx + getRandomInteger(0, 100)}>
+        <div className="big-card__future-wrapper" key={day[0]}>
           <span className="big-card__future-day big-card__future-property">{day[0]}</span>
           <span className="big-card__future-icon big-card__future-property">
-            <img src='http://openweathermap.org/img/wn/02d@2x.png' width='50' height='50' alt="" />
+            <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} width='50' height='50' alt="" />
           </span>
           <span className="big-card__future-temp big-card__future-property">{convertToCelsius(tempMin)} ... {convertToCelsius(tempMax)}</span>
         </div>);

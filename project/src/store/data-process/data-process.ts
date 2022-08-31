@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from 'const';
 import { DataProcess } from 'types/state';
 import { removeWeather } from 'store/action';
-import { FakeCityType, makeFakeWeatherCard } from 'utils/mocks';
+import {makeFakeWeatherCard} from 'utils/mocks';
 
 const initialState: DataProcess = {
-  weatherCards: [makeFakeWeatherCard(FakeCityType[1]), makeFakeWeatherCard(FakeCityType[2])]
+  weatherCards: new Array(2).fill(null).map(() => makeFakeWeatherCard())
 };
 
 export const weatherData = createSlice({
