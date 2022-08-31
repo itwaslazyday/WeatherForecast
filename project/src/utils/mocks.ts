@@ -66,16 +66,27 @@ const weatherConditions: Weather[] = [
   },
 ];
 
+const getPrevHour = (hour: number) => Math.floor(hour / 3) * 3;
+
+let currentDate = new Date();
+
 const makeFakeUnixDates = () => {
   const unixArray = [];
-  const currentDate = dayjs().unix();
-  let currentResult = currentDate - 10800;
+  const prevHour = getPrevHour(currentDate.getHours() - 3);
+  const prevDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate(),
+    prevHour
+  );
 
-  unixArray.push(currentResult);
+  let prevResult = new Date(prevDate).getTime();
+
+  unixArray.push(prevResult);
 
   for (let i = 0; i <= 40; i++) {
-    currentResult += 10800;
-    unixArray.push(currentResult);
+    prevResult += 10800000;
+    unixArray.push(prevResult);
   }
 
   return unixArray;
@@ -88,7 +99,7 @@ const makeFakeCondition = (unixDate: number): Condition => (
       temp: datatype.number({ min: 273.15, max: 320, precision: 2 }),
       feelsLike: datatype.number({ min: 273.15, max: 320, precision: 2 }),
       tempMin: datatype.number({ min: 273.15, max: 310, precision: 2 }),
-      tempMax: datatype.number({ min: 310, max: 330, precision: 2 }),
+      tempMax: datatype.number({ min: 290, max: 310, precision: 2 }),
       pressure: getRandomInteger(500, 1200),
       humidity: datatype.number({ min: 20, max: 100 }),
       seaLevel: getRandomInteger(1010, 1020),
@@ -109,7 +120,7 @@ const makeFakeCondition = (unixDate: number): Condition => (
     sys: {
       pod: 'n'
     },
-    dtTxt: dayjs().format('YYYY[-]MM[-]DD hh[:]mm[:]ss').toString()
+    dtTxt: dayjs(unixDate).format('YYYY[-]MM[-]DD HH[:]mm[:]ss').toString()
   }
 );
 
@@ -119,7 +130,7 @@ const makeFakeWeatherCard = (cityName: string): WeatherCard => (
     cod: 200,
     message: 0,
     cnt: 40,
-    list: makeFakeUnixDates().map((item) => makeFakeCondition(item)),
+    list: makeFakeUnixDates().map((date) => makeFakeCondition(date)),
     city: {
       id: getRandomInteger(0, 1000),
       name: cityName,
@@ -136,4 +147,30 @@ const makeFakeWeatherCard = (cityName: string): WeatherCard => (
   }
 );
 
-export { makeFakeWeatherCard, FakeCityType };
+const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+
+const getDayOfWeek = (count: number) => {
+  currentDate = new Date();
+  const dayOfWeek = weekDays[(new Date(currentDate.setDate(currentDate.getDate() + count)).getDay()) - 1];
+  return dayOfWeek;
+};
+
+const getDayMinMax = (count: number, card: WeatherCard) => {
+  currentDate = new Date();
+  const date = new Date(currentDate.setDate(currentDate.getDate() + count)).getDate();
+  const dayTemps = card.list.filter((item) => new Date(item.dt).getDate() === date);
+  const dayMax = Math.max.apply(null, dayTemps.map((item) => item.main.tempMax));
+  const dayMin = Math.min.apply(null, dayTemps.map((item) => item.main.tempMin));
+  return [dayMin, dayMax];
+};
+
+const getFutureDaysTemps = (card: WeatherCard) => {
+  const futureDaysTemps: {[key: string]: number[]} = {};
+
+  for (let i = 1; i <= 3; i++) {
+    futureDaysTemps[`${getDayOfWeek(i)}`] = getDayMinMax(i, card);
+  }
+  return futureDaysTemps;
+};
+
+export {makeFakeWeatherCard, FakeCityType, getFutureDaysTemps};

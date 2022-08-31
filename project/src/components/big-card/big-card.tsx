@@ -5,10 +5,11 @@ import { WeatherCard } from 'types/card';
 import { convertToCelsius, getWindDirection } from '../../utils/big-card';
 
 type BigCardProps = {
-  weatherCard: WeatherCard
+  weatherCard: WeatherCard;
+  futureDaysTemps: {[key: string]: number[]};
 }
 
-export default function BigCard({ weatherCard }: BigCardProps): JSX.Element {
+export default function BigCard({weatherCard, futureDaysTemps}: BigCardProps): JSX.Element {
   const [isFull, setFull] = useState<boolean>(false);
   const { city, list } = weatherCard;
   const { wind, main, weather } = list[0];
@@ -28,7 +29,7 @@ export default function BigCard({ weatherCard }: BigCardProps): JSX.Element {
           <div className="big-card__weather-conditions">
             {
               isFull ?
-                <BigCardFull weatherCard={weatherCard} /> :
+                <BigCardFull weatherCard={weatherCard} futureDaysTemps={futureDaysTemps}/> :
                 weather.map((condition) => <ConditionIcon key={condition.id} iconName={condition.icon} />)
             }
           </div>
