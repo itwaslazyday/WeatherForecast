@@ -3,15 +3,17 @@ import ConditionIcon from 'components/condition-icon/condition-icon';
 import { useState } from 'react';
 import { WeatherCard } from 'types/card';
 import { convertToCelsius, getWindDirection } from '../../utils/big-card';
+import dayjs from 'dayjs';
 
 type BigCardProps = {
   weatherCard: WeatherCard;
-  futureDaysTemps: {[key: string]: number[]};
+  futureDaysTemps: {[key: string]: {temps: {tempMin: number, tempMax: number}, icon: string}} ;
 }
 
 export default function BigCard({weatherCard, futureDaysTemps}: BigCardProps): JSX.Element {
   const [isFull, setFull] = useState<boolean>(false);
-  const { city, list } = weatherCard;
+  const { city, list} = weatherCard;
+  const {country, timezone} = city;
   const { wind, main, weather } = list[0];
 
   return (
@@ -22,7 +24,7 @@ export default function BigCard({weatherCard, futureDaysTemps}: BigCardProps): J
       <div className="big-card__header">
         <span className="icon icon--strips-big"></span>
         <span className="big-card__city">{city.name}</span>
-        <span className="big-card__time">22:40</span>
+        <span className="big-card__time">{`${dayjs(new Date(timezone * 1000)).format('HH[:]mm').toString()}`}</span>
       </div>
       <div className="big-card__content">
         <div className="big-card__content-wrapper">
@@ -49,3 +51,4 @@ export default function BigCard({weatherCard, futureDaysTemps}: BigCardProps): J
     </div>
   );
 }
+
