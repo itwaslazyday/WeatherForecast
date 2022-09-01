@@ -1,22 +1,25 @@
 import ConditionFullIcon from 'components/condition-full-icon/condition-full-icon';
 import { Weather, WeatherCard } from 'types/card';
+import { adaptConditionToClient } from 'utils/api';
 import { convertToCelsius } from 'utils/big-card';
 import { getRandomInteger, humanizeTime } from 'utils/common';
 
 type BigCardFullProps = {
   weatherCard: WeatherCard;
-  futureDaysTemps: {[key: string]: {temps: {tempMin: number, tempMax: number}, icon: string}} ;
+  futureDaysTemps: { [key: string]: { temps: { tempMin: number, tempMax: number }, icon: string } };
 
 }
 
 export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFullProps): JSX.Element {
   const { list } = weatherCard;
-  const currentDay = list[1];
+  const currentDay = adaptConditionToClient(list[1]);
   const { main, wind, visibility, clouds, dt, weather } = currentDay;
   const { feelsLike, pressure, humidity } = main;
+  // console.log(currentDay);
+  // console.log(futureDaysTemps);
 
   const weatherProperties = {
-    'Ощущается как': { id: 0, value: convertToCelsius(feelsLike), unit: '' },
+    'Ощущается как': { id: 0, value: convertToCelsius(feelsLike as number), unit: '' },
     'Давление': { id: 1, value: pressure, unit: 'мм рт.ст' },
     'Влажность': { id: 2, value: humidity, unit: '%' },
     'Ветер': { id: 3, value: wind.speed, unit: 'м/с' },
@@ -37,7 +40,7 @@ export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFul
 
   const makeFutureForecast = () => (
     Object.entries(futureDaysTemps).map((day, idx) => {
-      const {tempMin, tempMax} = day[1].temps;
+      const { tempMin, tempMax } = day[1].temps;
       const icon = day[1].icon;
       return (
         <div className="big-card__future-wrapper" key={day[0]}>
@@ -55,7 +58,7 @@ export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFul
       <div className="big-card__full-item">
         <span className="big-card__full-date">{humanizeTime(dt)}</span>
         <span className="big-card__temperature big-card__temperature--font">
-          {`${convertToCelsius(main.tempMin)}... ${convertToCelsius(main.tempMax)}`}
+          {`${convertToCelsius(main.tempMin as number)}... ${convertToCelsius(main.tempMax as number)}`}
         </span>
         {weather.map((condition) => <ConditionFullIcon key={condition.id} weatherCondition={condition} />)}
         <div className="big-card__future">

@@ -1,24 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from 'const';
+import { fetchWeatherAction } from 'store/api-actions';
 import { DataProcess } from 'types/state';
-import { removeWeather } from 'store/action';
-import {makeFakeWeatherCard} from 'utils/mocks';
+import { makeFakeWeatherCard } from 'utils/mocks';
 
 const initialState: DataProcess = {
-  weatherCards: new Array(2).fill(null).map(() => makeFakeWeatherCard())
+  weatherCards: []
 };
 
 export const weatherData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    removeWeather: (state, action) => {
+      state.weatherCards.filter((card) => card.city.id === action.payload);
+    },
+    // updateWeatherCards: (state, action) => {
+    //   drag and drop
+    // }
+  },
   extraReducers(builder) {
     builder
-      // .addCase(fetchWeatherAction.pending, (state, action) => {
-      //   state.weatherCards.push(action.payload);
-      // })
-      .addCase(removeWeather, (state, action) => {
-        state.weatherCards.filter((card) => card.city.id === action.payload);
+      .addCase(fetchWeatherAction.fulfilled, (state, action) => {
+        state.weatherCards.push(action.payload);
+      })
+      .addCase(fetchWeatherAction.rejected, (state, action) => {
+        console.log('data error');
       });
   }
 });
