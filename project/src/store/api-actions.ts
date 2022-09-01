@@ -12,7 +12,6 @@ export const fetchWeatherAction = createAsyncThunk<WeatherCard, Coord, {
   'data/weather',
   async ({ lat, lon }, { dispatch, extra: api }) => {
     const { data } = await api.get<WeatherCard>(`forecast?lat=${lat}6&lon=${lon}&lang=ru&appid=${API_KEY}`);
-
     return data;
   },
 );

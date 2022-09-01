@@ -14,49 +14,49 @@ const weatherConditions: Weather[] = [
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clouds',
-    description: 'малооблачно',
+    description: 'Малооблачно',
     icon: '02d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clouds',
-    description: 'облачно',
+    description: 'Облачно',
     icon: '03d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Clouds',
-    description: 'облачно с прояснениями',
+    description: 'Облачно с прояснениями',
     icon: '04d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Rain',
-    description: 'ливень',
+    description: 'Ливень',
     icon: '09d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Rain',
-    description: 'дождь',
+    description: 'Дождь',
     icon: '10d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Thunderstorm',
-    description: 'гроза',
+    description: 'Гроза',
     icon: '11d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Snow',
-    description: 'снег',
+    description: 'Снег',
     icon: '13d'
   },
   {
     id: datatype.number({ min: 200, max: 804 }), //Weather condition id
     main: 'Drizzle',
-    description: 'туман',
+    description: 'Туман',
     icon: '50d'
   },
 ];
@@ -146,17 +146,17 @@ const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 const getDayOfWeek = (count: number) => {
   currentDate = new Date();
-  const dayOfWeek = weekDays[(new Date(currentDate.setDate(currentDate.getDate() + count)).getDay()) - 1];
+  const dayOfWeek = weekDays[currentDate.getDay() + count - 1];
   return dayOfWeek;
 };
 
 const getDayList = (count: number, card: WeatherCard) => {
   currentDate = new Date();
   const date = new Date(currentDate.setDate(currentDate.getDate() + count)).getDate();
-  console.log('wtf');
-  const dayList = card.list.filter((item) => new Date(item.dt).getDate() === date).map((item) => adaptConditionToClient(item));
-  console.log(dayList);
-  return dayList;
+  const dayList = card.list.filter((item) => new Date(item.dt * 1000).getDate() === date);
+  const dayListAdapted = dayList.map((item) => adaptConditionToClient(item));
+  console.log('dayListAdapted', dayListAdapted);
+  return dayListAdapted;
 };
 
 const getDayMinMax = (count: number, card: WeatherCard) => {
@@ -187,4 +187,4 @@ const getFutureDaysTemps = (card: WeatherCard) => {
   return futureDaysTemps;
 };
 
-export { makeFakeWeatherCard, getFutureDaysTemps };
+export {makeFakeWeatherCard, getFutureDaysTemps};

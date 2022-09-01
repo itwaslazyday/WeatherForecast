@@ -1,7 +1,6 @@
 import BigCard from 'components/big-card/big-card';
 import Map from 'components/map/map';
 import Sort from 'components/sort/sort';
-import { getFutureDaysTemps } from 'utils/mocks';
 import { useAppDispatch, useAppSelector } from 'hooks/index';
 import { getWeatherCards } from 'store/data-process/selector';
 
@@ -24,7 +23,7 @@ export default function Main(): JSX.Element {
 
               {
                 weatherCards.length !== 0 ?
-                  weatherCards.map((card) => <BigCard key={card.city.id} weatherCard={card} futureDaysTemps={getFutureDaysTemps(card)} />) :
+                  weatherCards.map((card) => <BigCard key={card.city.id} weatherCard={card} />) :
                   <div className="weather-content__help">Выберите город, погода в котором вам интересна</div>
               }
             </div>

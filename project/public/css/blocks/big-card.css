@@ -12,6 +12,14 @@
   background-size: cover;
 }
 
+.big-card:hover .big-card__header {
+  backdrop-filter: blur(3px);
+}
+
+.big-card:hover .big-card__content {
+  backdrop-filter: blur(3px);
+}
+
 .big-card--full {
   background-image: none;
 }
@@ -30,6 +38,7 @@
   border-radius: 7px 7px 0 0;
   backdrop-filter: blur(2px);
   transition: background-color var(--transition-base);
+  background: transparent;
 }
 
 .big-card__time {
@@ -175,13 +184,13 @@
   color: var(--color-text-white);
 }
 
-.big-card:hover .big-card__header {
+/* .big-card:hover .big-card__header {
   background-color: var(--color-blue-light);
 }
 
 .big-card:hover .big-card__content {
   background-color: var(--color-blue-main);
-}
+} */
 
 .big-card:active {
   filter: drop-shadow(0 8px 20px rgba(11, 23, 78, 0.5));

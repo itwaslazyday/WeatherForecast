@@ -3,6 +3,7 @@ import { useMap } from 'react-leaflet';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useAppDispatch } from 'hooks';
 import { fetchWeatherAction } from 'store/api-actions';
+import L from 'leaflet';
 
 function SearchControl() {
   const map = useMap();
@@ -18,6 +19,11 @@ function SearchControl() {
       retainZoomLevel: true,
       maxSuggestions: 8,
       searchLabel: 'Введите город...',
+      keepResult: false,
+      marker: {
+        icon: L && L.Icon ? new L.Icon.Default() : undefined,
+        draggable: false,
+      },
       classNames: {
         container: 'leaflet-bar leaflet-control leaflet-control-geosearch',
         button: 'leaflet-bar-part leaflet-bar-part-single',
@@ -39,6 +45,7 @@ function SearchControl() {
   }, [map]);
 
   const searchEventHandler = (result: any) => {
+    console.log('fuck');
     const { x, y } = result.location;
     dispatch(fetchWeatherAction({ lat: y, lon: x }));
   };

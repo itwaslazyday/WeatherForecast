@@ -1,5 +1,6 @@
 enum NameSpace {
   Data = 'DATA',
+  Errors = 'ERRORS'
 }
 
 enum AppRoute {
