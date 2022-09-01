@@ -12,6 +12,7 @@ const adaptConditionToClient = (condition: ConditionServer) => {
       grndLevel: condition.main.grnd_level,
       tempKf: condition.main.temp_kf
     },
+    dt: condition.dt * 1000,
     dtTxt: condition.dt_txt
   };
 
@@ -22,7 +23,6 @@ const adaptConditionToClient = (condition: ConditionServer) => {
   delete adaptedCondition.main.grnd_level;
   delete adaptedCondition.main.temp_kf;
   delete adaptedCondition.dt_txt;
-  console.log(adaptedCondition);
 
   return adaptedCondition;
 };

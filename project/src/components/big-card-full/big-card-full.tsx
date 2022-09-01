@@ -10,11 +10,11 @@ type BigCardFullProps = {
 
 }
 
-export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFullProps): JSX.Element {
-  const { list } = weatherCard;
+export default function BigCardFull({weatherCard, futureDaysTemps}: BigCardFullProps): JSX.Element {
+  const {list} = weatherCard;
   const currentDay = adaptConditionToClient(list[1]);
-  const { main, wind, visibility, clouds, dt, weather } = currentDay;
-  const { feelsLike, pressure, humidity } = main;
+  const {main, wind, visibility, clouds, dt, weather} = currentDay;
+  const {feelsLike, pressure, humidity} = main;
   // console.log(currentDay);
   // console.log(futureDaysTemps);
 
