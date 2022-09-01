@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { datatype, address } from 'faker';
 import { Condition, Weather, WeatherCard } from 'types/card';
+import { adaptConditionToClient } from './api';
 import { getRandomInteger } from './common';
 
 const weatherConditions: Weather[] = [
@@ -152,34 +153,38 @@ const getDayOfWeek = (count: number) => {
 const getDayList = (count: number, card: WeatherCard) => {
   currentDate = new Date();
   const date = new Date(currentDate.setDate(currentDate.getDate() + count)).getDate();
-  const dayList = card.list.filter((item) => new Date(item.dt).getDate() === date);
+  console.log('wtf');
+  const dayList = card.list.filter((item) => new Date(item.dt).getDate() === date).map((item) => adaptConditionToClient(item));
+  console.log(dayList);
   return dayList;
 };
 
 const getDayMinMax = (count: number, card: WeatherCard) => {
   const dayList = getDayList(count, card);
-  const dayMax = Math.max.apply(null, dayList.map((item) => item.main.tempMax));
-  const dayMin = Math.min.apply(null, dayList.map((item) => item.main.tempMin));
-  return {tempMin: dayMin, tempMax: dayMax};
+  const dayMax = Math.max.apply(null, dayList.map((item) => item.main.tempMax as number));
+  const dayMin = Math.min.apply(null, dayList.map((item) => item.main.tempMin as number));
+
+  return { tempMin: dayMin, tempMax: dayMax };
 };
 
 const getMostFrequentDayIcon = (count: number, card: WeatherCard) => {
   const dayList = getDayList(count, card);
   const dayIcons = dayList.map((item) => item.weather[0].icon);
-  const dayIconsRepeats: {[key: string]: number} = {};
+  const dayIconsRepeats: { [key: string]: number } = {};
   dayIcons.forEach((icon: string) => (dayIconsRepeats[icon] = (dayIconsRepeats[icon] || 0) + 1));
   const maxRepeat = Math.max.apply(null, Object.values(dayIconsRepeats));
   const mostFrequentDayIcon = Object.keys(dayIconsRepeats).find((key) => dayIconsRepeats[key] === maxRepeat);
+
   return mostFrequentDayIcon as string;
 };
 
 const getFutureDaysTemps = (card: WeatherCard) => {
-  const futureDaysTemps: {[key: string]: {temps: {tempMin: number, tempMax: number}, icon: string}} = {};
+  const futureDaysTemps: { [key: string]: { temps: { tempMin: number, tempMax: number }, icon: string } } = {};
 
   for (let i = 1; i <= 3; i++) {
-    futureDaysTemps[`${getDayOfWeek(i)}`] = {temps: getDayMinMax(i, card), icon: getMostFrequentDayIcon(i, card)};
+    futureDaysTemps[`${getDayOfWeek(i)}`] = { temps: getDayMinMax(i, card), icon: getMostFrequentDayIcon(i, card) };
   }
   return futureDaysTemps;
 };
 
-export {makeFakeWeatherCard, getFutureDaysTemps};
+export { makeFakeWeatherCard, getFutureDaysTemps };

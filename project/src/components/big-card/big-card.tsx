@@ -4,17 +4,18 @@ import { useState } from 'react';
 import { WeatherCard } from 'types/card';
 import { convertToCelsius, getWindDirection } from '../../utils/big-card';
 import dayjs from 'dayjs';
+import { adaptConditionToClient } from 'utils/api';
 
 type BigCardProps = {
   weatherCard: WeatherCard;
-  futureDaysTemps: {[key: string]: {temps: {tempMin: number, tempMax: number}, icon: string}} ;
+  futureDaysTemps: { [key: string]: { temps: { tempMin: number, tempMax: number }, icon: string } };
 }
 
-export default function BigCard({weatherCard, futureDaysTemps}: BigCardProps): JSX.Element {
+export default function BigCard({ weatherCard, futureDaysTemps }: BigCardProps): JSX.Element {
   const [isFull, setFull] = useState<boolean>(false);
-  const { city, list} = weatherCard;
-  const {country, timezone} = city;
-  const { wind, main, weather } = list[0];
+  const { city, list } = weatherCard;
+  const { country, timezone } = city;
+  const { wind, main, weather } = adaptConditionToClient(list[0]);
 
   return (
     <div
@@ -31,7 +32,7 @@ export default function BigCard({weatherCard, futureDaysTemps}: BigCardProps): J
           <div className="big-card__weather-conditions">
             {
               isFull ?
-                <BigCardFull weatherCard={weatherCard} futureDaysTemps={futureDaysTemps}/> :
+                <BigCardFull weatherCard={weatherCard} futureDaysTemps={futureDaysTemps} /> :
                 weather.map((condition) => <ConditionIcon key={condition.id} iconName={condition.icon} />)
             }
           </div>

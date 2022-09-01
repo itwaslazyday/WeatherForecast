@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
-import {GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+import { useAppDispatch } from 'hooks';
+import { fetchWeatherAction } from 'store/api-actions';
 
-function SearchControl () {
+function SearchControl() {
   const map = useMap();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const prov = new OpenStreetMapProvider();
@@ -36,7 +39,8 @@ function SearchControl () {
   }, [map]);
 
   const searchEventHandler = (result: any) => {
-    console.log(result.location);
+    const { x, y } = result.location;
+    dispatch(fetchWeatherAction({ lat: y, lon: x }));
   };
 
   map.on('geosearch/showlocation', searchEventHandler);
