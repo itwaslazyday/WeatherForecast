@@ -7,9 +7,8 @@
   border-radius: 7px;
   cursor: pointer;
   transition: filter var(--transition-base);
+  backdrop-filter: blur(1px);
   outline: none;
-  background: url(/img/sunny.jpeg) center no-repeat;
-  background-size: cover;
 }
 
 .big-card:hover .big-card__header {
@@ -21,7 +20,7 @@
 }
 
 .big-card--full {
-  background-image: none;
+  background-image: none !important;
 }
 
 .big-card:not(:last-child) {
@@ -36,7 +35,6 @@
   width: 100%;
   padding: 14px 20px 5px;
   border-radius: 7px 7px 0 0;
-  backdrop-filter: blur(2px);
   transition: background-color var(--transition-base);
   background: transparent;
 }
@@ -66,7 +64,6 @@
   width: 100%;
   padding: 0 24px 16px 20px;
   border-radius: 0 0 7px 7px;
-  backdrop-filter: blur(2px);
   transition: background-color var(--transition-base);
 }
 
@@ -184,14 +181,6 @@
   color: var(--color-text-white);
 }
 
-/* .big-card:hover .big-card__header {
-  background-color: var(--color-blue-light);
-}
-
-.big-card:hover .big-card__content {
-  background-color: var(--color-blue-main);
-} */
-
 .big-card:active {
   filter: drop-shadow(0 8px 20px rgba(11, 23, 78, 0.5));
 }
@@ -241,7 +230,7 @@
   display: flex;
   position: absolute;
   top: 8%;
-  right: 100px;
+  right: 70px;
   max-width: 60px;
   font-size: smaller;
   line-height: 1;
@@ -256,5 +245,6 @@
 .big-card__full-item {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 

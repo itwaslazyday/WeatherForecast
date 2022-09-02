@@ -44,13 +44,15 @@ function SearchControl() {
     };
   }, [map]);
 
-  const searchEventHandler = (result: any) => {
-    console.log('fuck');
-    const { x, y } = result.location;
-    dispatch(fetchWeatherAction({ lat: y, lon: x }));
-  };
+  useEffect(() => {
+    const searchEventHandler = (result: any) => {
+      console.log('fuck');
+      const { x, y } = result.location;
+      dispatch(fetchWeatherAction({ lat: y, lon: x }));
+    };
 
-  map.on('geosearch/showlocation', searchEventHandler);
+    map.on('geosearch/showlocation', searchEventHandler);
+  }, [dispatch, map]);
 
   return null;
 }
