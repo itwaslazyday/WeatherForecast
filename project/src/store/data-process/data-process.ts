@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from 'const';
+import { NameSpace } from 'const/enums';
 import { fetchWeatherAction } from 'store/api-actions';
 import { DataProcess } from 'types/state';
 
@@ -26,4 +26,4 @@ export const weatherData = createSlice({
   }
 });
 
-export const {removeWeatherCard, updateWeatherCards} = weatherData.actions;
+export const { removeWeatherCard, updateWeatherCards } = weatherData.actions;

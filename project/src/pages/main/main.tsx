@@ -1,12 +1,15 @@
 import BigCard from 'components/big-card/big-card';
 import Map from 'components/map/map';
 import Sort from 'components/sort/sort';
-import { useAppDispatch, useAppSelector } from 'hooks/index';
+import { useAppSelector } from 'hooks/index';
+import { useState } from 'react';
 import { getWeatherCards } from 'store/data-process/selector';
 
 export default function Main(): JSX.Element {
+  const [isActive, setActive] = useState<number | null>(null);
+  const [isFull, setFull] = useState<number | null>(null);
   const weatherCards = useAppSelector(getWeatherCards);
-
+  console.log(isFull);
   return (
     <main>
       <section className="weather-app">
@@ -23,13 +26,13 @@ export default function Main(): JSX.Element {
 
               {
                 weatherCards.length !== 0 ?
-                  weatherCards.map((card) => <BigCard key={card.city.id} weatherCard={card} />) :
+                  weatherCards.map((card) => <BigCard key={card.city.id} weatherCard={card} isActive={isActive} isFull={isFull} setActive={setActive} setFull={setFull} />) :
                   <div className="weather-content__help">Выберите город, погода в котором вам интересна</div>
               }
             </div>
           </section>
         </div>
-        <Map />
+        <Map cards={weatherCards} isActive={isActive} isFull={isFull} setActive={setActive} setFull={setFull} />
       </section>
     </main>
   );

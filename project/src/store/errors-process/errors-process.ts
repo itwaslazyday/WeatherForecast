@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from 'const';
+import { NameSpace } from 'const/enums';
 import { fetchWeatherAction } from 'store/api-actions';
 import { ErrorsProcess } from 'types/state';
 

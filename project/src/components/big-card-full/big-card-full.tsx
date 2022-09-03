@@ -1,20 +1,24 @@
 import ConditionFullIcon from 'components/condition-full-icon/condition-full-icon';
-import { Weather, WeatherCard } from 'types/card';
+import { WeatherCard } from 'types/card';
 import { adaptConditionToClient } from 'utils/api';
 import { convertToCelsius } from 'utils/big-card';
-import { getRandomInteger, humanizeTime } from 'utils/common';
+import { humanizeTime } from 'utils/common';
 
 type BigCardFullProps = {
   weatherCard: WeatherCard;
   futureDaysTemps: { [key: string]: { temps: { tempMin: number, tempMax: number }, icon: string } };
-
 }
 
-export default function BigCardFull({weatherCard, futureDaysTemps}: BigCardFullProps): JSX.Element {
-  const {list} = weatherCard;
+export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFullProps): JSX.Element {
+  const { list } = weatherCard;
   const currentDay = adaptConditionToClient(list[1]);
+<<<<<<< HEAD
   const {main, wind, visibility, clouds, dt, weather} = currentDay;
   const {feelsLike, pressure, humidity} = main;
+=======
+  const { main, wind, visibility, clouds, dt, weather } = currentDay;
+  const { feelsLike, pressure, humidity } = main;
+>>>>>>> 13d3c9c (Настроит двухстороннюю связь между картой и карточками/1)
 
   const weatherProperties = {
     'Ощущается как': { id: 0, value: convertToCelsius(feelsLike as number), unit: '' },
