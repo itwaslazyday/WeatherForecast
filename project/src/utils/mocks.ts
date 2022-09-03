@@ -6,55 +6,55 @@ import { getRandomInteger } from './common';
 
 const weatherConditions: Weather[] = [
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Clear',
     description: 'Ясно',
     icon: '01d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Clouds',
     description: 'Малооблачно',
     icon: '02d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Clouds',
     description: 'Облачно',
     icon: '03d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Clouds',
     description: 'Облачно с прояснениями',
     icon: '04d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Rain',
     description: 'Ливень',
     icon: '09d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Rain',
     description: 'Дождь',
     icon: '10d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Thunderstorm',
     description: 'Гроза',
     icon: '11d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Snow',
     description: 'Снег',
     icon: '13d'
   },
   {
-    id: datatype.number({ min: 200, max: 804 }), //Weather condition id
+    id: datatype.number({ min: 200, max: 804 }),
     main: 'Drizzle',
     description: 'Туман',
     icon: '50d'
@@ -142,7 +142,7 @@ const makeFakeWeatherCard = (): WeatherCard => (
   }
 );
 
-const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 const getDayOfWeek = (count: number) => {
   currentDate = new Date();
@@ -155,7 +155,7 @@ const getDayList = (count: number, card: WeatherCard) => {
   const date = new Date(currentDate.setDate(currentDate.getDate() + count)).getDate();
   const dayList = card.list.filter((item) => new Date(item.dt * 1000).getDate() === date);
   const dayListAdapted = dayList.map((item) => adaptConditionToClient(item));
-  console.log('dayListAdapted', dayListAdapted);
+  // console.log('dayListAdapted', dayListAdapted);
   return dayListAdapted;
 };
 

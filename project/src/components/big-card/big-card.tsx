@@ -20,16 +20,20 @@ export default function BigCard({weatherCard}: BigCardProps): JSX.Element {
   const { country, timezone } = city;
   const { wind, main, weather } = adaptConditionToClient(list[1]);
   const futureDaysTemps = useMemo(() => getFutureDaysTemps(weatherCard), [weatherCard]);
+  const cardLocalTime = dayjs().utc().utcOffset(timezone / 60);
+  const cardLocalTimeHours = Number(cardLocalTime.format('HH'));
+  const cardsBackgroundPrefix = cardLocalTimeHours >= 20 || cardLocalTimeHours < 6 ? 'n' : 'd';
 
   return (
     <div
       className={`big-card ${isFull && 'big-card--full'}`}
+      style={{background: `url(/img/${weather[0].main}-${cardsBackgroundPrefix}.jpeg) center no-repeat`, backgroundSize: 'cover'}}
       onClick={() => setFull((prev) => !prev)}
     >
       <div className="big-card__header">
         <span className="icon icon--strips-big"></span>
         <span className="big-card__city">{city.name}</span>
-        <span className="big-card__time">{`${dayjs().utc().utcOffset(timezone / 60).format('HH[:]mm')}`}</span>
+        <span className="big-card__time">{`${cardLocalTime.format('HH[:]mm')}`}</span>
       </div>
       <div className="big-card__content">
         <div className="big-card__content-wrapper">

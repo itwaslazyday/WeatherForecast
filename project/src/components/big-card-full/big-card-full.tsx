@@ -15,8 +15,6 @@ export default function BigCardFull({weatherCard, futureDaysTemps}: BigCardFullP
   const currentDay = adaptConditionToClient(list[1]);
   const {main, wind, visibility, clouds, dt, weather} = currentDay;
   const {feelsLike, pressure, humidity} = main;
-  // console.log(currentDay);
-  // console.log(futureDaysTemps);
 
   const weatherProperties = {
     'Ощущается как': { id: 0, value: convertToCelsius(feelsLike as number), unit: '' },
