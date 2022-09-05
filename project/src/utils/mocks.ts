@@ -125,6 +125,7 @@ const makeFakeWeatherCard = (): WeatherCard => (
     cod: 200,
     message: 0,
     cnt: 40,
+    order: getRandomInteger(0, 20),
     list: makeFakeUnixDates().map((date) => makeFakeCondition(date)),
     city: {
       id: getRandomInteger(0, 1000),

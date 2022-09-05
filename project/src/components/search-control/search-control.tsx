@@ -52,7 +52,6 @@ function SearchControl({ setMapCenter }: SearchControlProps) {
 
   useEffect(() => {
     const searchEventHandler = (result: any) => {
-      console.log('fuck');
       const { x, y } = result.location;
       dispatch(fetchWeatherAction({ lat: y, lon: x }));
       setMapCenter({ lat: y, lon: x });
