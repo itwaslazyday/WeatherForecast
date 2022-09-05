@@ -1,24 +1,19 @@
 import ConditionFullIcon from 'components/condition-full-icon/condition-full-icon';
 import { WeatherCard } from 'types/card';
 import { adaptConditionToClient } from 'utils/api';
-import { convertToCelsius } from 'utils/big-card';
+import { convertToCelsius } from 'utils/card';
 import { humanizeTime } from 'utils/common';
 
-type BigCardFullProps = {
+type FullCardProps = {
   weatherCard: WeatherCard;
   futureDaysTemps: { [key: string]: { temps: { tempMin: number, tempMax: number }, icon: string } };
 }
 
-export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFullProps): JSX.Element {
+export default function FullCard({ weatherCard, futureDaysTemps }: FullCardProps): JSX.Element {
   const { list } = weatherCard;
   const currentDay = adaptConditionToClient(list[1]);
-<<<<<<< HEAD
-  const {main, wind, visibility, clouds, dt, weather} = currentDay;
-  const {feelsLike, pressure, humidity} = main;
-=======
   const { main, wind, visibility, clouds, dt, weather } = currentDay;
   const { feelsLike, pressure, humidity } = main;
->>>>>>> 13d3c9c (Настроит двухстороннюю связь между картой и карточками/1)
 
   const weatherProperties = {
     'Ощущается как': { id: 0, value: convertToCelsius(feelsLike as number), unit: '' },
@@ -33,9 +28,9 @@ export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFul
     Object.entries(weatherProperties).map((property) => {
       const { id, value, unit } = property[1];
       return (
-        <div className="big-card__property-wrapper" key={id}>
-          <span className="big-card__property-header">{property[0]}</span>
-          <span className="big-card__property">{value} <small>{unit}</small></span>
+        <div className="card__property-wrapper" key={id}>
+          <span className="card__property-header">{property[0]}</span>
+          <span className="card__property">{value} <small>{unit}</small></span>
         </div>);
     })
   );
@@ -45,29 +40,29 @@ export default function BigCardFull({ weatherCard, futureDaysTemps }: BigCardFul
       const { tempMin, tempMax } = day[1].temps;
       const icon = day[1].icon;
       return (
-        <div className="big-card__future-wrapper" key={day[0]}>
-          <span className="big-card__future-day big-card__future-property">{day[0]}</span>
-          <span className="big-card__future-icon big-card__future-property">
+        <div className="card__future-wrapper" key={day[0]}>
+          <span className="card__future-day card__future-property">{day[0]}</span>
+          <span className="card__future-icon card__future-property">
             <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} width='50' height='50' alt="" />
           </span>
-          <span className="big-card__future-temp big-card__future-property">{convertToCelsius(tempMin)} ... {convertToCelsius(tempMax)}</span>
+          <span className="card__future-temp card__future-property">{convertToCelsius(tempMin)} ... {convertToCelsius(tempMax)}</span>
         </div>);
     })
   );
 
   return (
-    <div className="big-card__full">
-      <div className="big-card__full-item">
-        <span className="big-card__full-date">{humanizeTime(dt)}</span>
-        <span className="big-card__temperature big-card__temperature--font">
+    <div className="card__full">
+      <div className="card__full-item">
+        <span className="card__full-date">{humanizeTime(dt)}</span>
+        <span className="card__temperature card__temperature--font">
           {`${convertToCelsius(main.tempMin as number)}... ${convertToCelsius(main.tempMax as number)}`}
         </span>
         {weather.map((condition) => <ConditionFullIcon key={condition.id} weatherCondition={condition} />)}
-        <div className="big-card__future">
-          <span className="big-card__future-header">Прогноз на три дня</span>
+        <div className="card__future">
+          <span className="card__future-header">Прогноз на три дня</span>
           {makeFutureForecast()}
         </div>
-        <div className="big-card__properties">
+        <div className="card__properties">
           {makeCardProperties()}
         </div>
       </div>

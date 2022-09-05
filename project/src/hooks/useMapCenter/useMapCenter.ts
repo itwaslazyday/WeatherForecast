@@ -13,7 +13,7 @@ function UseMapCenter({ center }: UseMapCenterProps) {
   const { lat, lon } = center;
   const map = useMap();
 
-  map.setView([lat, lon], 10);
+  map.flyTo([lat, lon], 10, { animate: true, duration: 0.4 });
 
   return null;
 }

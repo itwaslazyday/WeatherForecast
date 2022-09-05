@@ -10,13 +10,14 @@ import { currentCustomIcon, defaultCustomIcon, DEFAULT_LAT, DEFAULT_LON, DEFAULT
 
 type MapProps = {
   cards: WeatherCard[]
-  isActive: number | null
-  isFull: number | null
-  setActive: (id: number | null) => void
-  setFull: (id: number | null) => void
+  activeCard: number | null
+  fullCard: number | null
+  setActiveCard: (id: number | null) => void
+  setFullCard: (id: number | null) => void
+  setScrollCard: (id: number | null) => void
 }
 
-export default function Map({ cards, isActive, isFull, setActive, setFull }: MapProps): JSX.Element {
+export default function Map({ cards, activeCard, fullCard, setActiveCard, setFullCard, setScrollCard }: MapProps): JSX.Element {
   const [mapCenter, setMapCenter] = useState<Coord>({ lat: DEFAULT_LAT, lon: DEFAULT_LON });
 
 
@@ -25,16 +26,17 @@ export default function Map({ cards, isActive, isFull, setActive, setFull }: Map
     return (
       <Marker
         position={[lat, lon]}
-        icon={card.city.id === isActive ? currentCustomIcon : defaultCustomIcon}
+        icon={card.city.id === activeCard ? currentCustomIcon : defaultCustomIcon}
         eventHandlers={{
           mouseover: () => {
-            setActive(card.city.id);
+            setActiveCard(card.city.id);
+            setScrollCard(card.city.id);
           },
           mouseout: () => {
-            setActive(null);
+            setActiveCard(null);
           },
           mousedown: () => {
-            isFull ? setFull(null) : setFull(card.city.id);
+            fullCard ? setFullCard(null) : setFullCard(card.city.id);
           }
         }}
       >
@@ -43,16 +45,16 @@ export default function Map({ cards, isActive, isFull, setActive, setFull }: Map
   };
 
   useEffect(() => {
-    if (isFull === null) {
+    if (fullCard === null) {
       return;
     }
 
-    if (isFull !== null) {
-      const fullCard = cards.find((card) => card.city.id === isFull);
-      const { lat, lon } = fullCard?.city.coord as Coord;
+    if (fullCard !== null) {
+      const currentCard = cards.find((card) => card.city.id === fullCard);
+      const { lat, lon } = currentCard?.city.coord as Coord;
       setMapCenter({ lat, lon });
     }
-  }, [isFull, cards]);
+  }, [fullCard, cards]);
 
   return (
     <div className="weather-app__map weather-map">

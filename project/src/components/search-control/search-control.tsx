@@ -55,18 +55,11 @@ function SearchControl({ setMapCenter }: SearchControlProps) {
       console.log('fuck');
       const { x, y } = result.location;
       dispatch(fetchWeatherAction({ lat: y, lon: x }));
-<<<<<<< HEAD
-    };
-
-    map.on('geosearch/showlocation', searchEventHandler);
-  }, [dispatch, map]);
-=======
       setMapCenter({ lat: y, lon: x });
     };
 
     map.on('geosearch/showlocation', searchEventHandler);
   }, [dispatch, map, setMapCenter]);
->>>>>>> 13d3c9c (Настроит двухстороннюю связь между картой и карточками/1)
 
   return null;
 }
