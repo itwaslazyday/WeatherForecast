@@ -4,8 +4,13 @@ import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useAppDispatch } from 'hooks';
 import { fetchWeatherAction } from 'store/api-actions';
 import L from 'leaflet';
+import { Coord } from 'types/card';
 
-function SearchControl() {
+type SearchControlProps = {
+  setMapCenter: (center: Coord) => void
+}
+
+function SearchControl({ setMapCenter }: SearchControlProps) {
   const map = useMap();
   const dispatch = useAppDispatch();
 
@@ -38,6 +43,7 @@ function SearchControl() {
     });
 
     map.addControl(searchControl);
+    map.zoomControl.setPosition('topright');
 
     return () => {
       map.removeControl(searchControl);
@@ -49,10 +55,11 @@ function SearchControl() {
       console.log('fuck');
       const { x, y } = result.location;
       dispatch(fetchWeatherAction({ lat: y, lon: x }));
+      setMapCenter({ lat: y, lon: x });
     };
 
     map.on('geosearch/showlocation', searchEventHandler);
-  }, [dispatch, map]);
+  }, [dispatch, map, setMapCenter]);
 
   return null;
 }

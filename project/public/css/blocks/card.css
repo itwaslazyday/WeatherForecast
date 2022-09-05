@@ -1,8 +1,9 @@
-.big-card {
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
   color: #fff;
   border-radius: 7px;
   cursor: pointer;
@@ -11,23 +12,23 @@
   outline: none;
 }
 
-.big-card:hover .big-card__header {
+.card:hover .card__header {
   backdrop-filter: blur(3px);
 }
 
-.big-card:hover .big-card__content {
+.card:hover .card__content {
   backdrop-filter: blur(3px);
 }
 
-.big-card--full {
+.card--full {
   background-image: none !important;
 }
 
-.big-card:not(:last-child) {
+.card:not(:last-child) {
   margin-bottom: 10px;
 }
 
-.big-card__header {
+.card__header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -39,26 +40,26 @@
   background: transparent;
 }
 
-.big-card__time {
+.card__time {
   margin-right: 15px;
   margin-left: auto;
   font-size: 30px;
   line-height: 36px;
 }
 
-.big-card__city {
+.card__city {
   font-size: 30px;
   line-height: 36px;
   transition: color var(--transition-base);
 }
 
-.big-card__time {
+.card__time {
   margin-right: 15px;
   font-size: 30px;
   line-height: 36px;
 }
 
-.big-card__content {
+.card__content {
   display: flex;
   align-items: center;
   width: 100%;
@@ -67,11 +68,11 @@
   transition: background-color var(--transition-base);
 }
 
-.big-card__content-wrapper {
+.card__content-wrapper {
   width: 100%;
 }
 
-.big-card__future {
+.card__future {
   display: grid;
   grid-template-rows: repeat(3, auto);
   gap: 5px;
@@ -82,33 +83,33 @@
   padding: 5px 0;
 }
 
-.big-card__future-wrapper {
+.card__future-wrapper {
   height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.big-card__future-property {
+.card__future-property {
   display: block;
   text-align: center;
   width: 85px;
 }
 
-.big-card__future-day {
+.card__future-day {
   display: block;
   width: 60px;
   text-align: left;
   padding-left: 10px;
 }
 
-.big-card__future-header {
+.card__future-header {
   font-size: 17px;
   opacity: 0.5;
   margin: 0 auto;
 }
 
-.big-card__properties {
+.card__properties {
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(2, auto);
@@ -119,11 +120,11 @@
   padding: 10px 0;
 }
 
-.big-card__property {
+.card__property {
   font-size: 25px;
 }
 
-.big-card__property-wrapper {
+.card__property-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,32 +132,32 @@
   height: 60px;
   font-size: 17px;
 }
-.big-card__property-header {
+.card__property-header {
   height: 30px;
   opacity: 0.5;
 }
 
-.big-card__weather-conditions span:last-child {
+.card__weather-conditions span:last-child {
   margin-right: 0;
 }
 
-.big-card__wind {
+.card__wind {
   display: flex;
   align-items: center;
   margin-top: 5px;
 }
 
-.big-card__wind-info {
+.card__wind-info {
   margin-left: 10px;
 
   transition: color var(--transition-base);
 }
 
-.big-card__full-date {
+.card__full-date {
   margin: 5px 0;
 }
 
-.big-card__temperature {
+.card__temperature {
   margin-left: auto;
   font-size: 64px;
   line-height: 62px;
@@ -165,68 +166,68 @@
   transition: color var(--transition-base);
 }
 
-.big-card__temperature--font {
+.card__temperature--font {
   font-size: 36px;
   line-height: 60px;
   margin-left: 0;
   margin-bottom: 10px;
 }
 
-.big-card:hover .big-card__city {
+.card:hover .card__city {
   color: var(--color-text-white);
 }
 
-.big-card:hover .big-card__temperature,
-.big-card:hover .big-card__wind-info {
+.card:hover .card__temperature,
+.card:hover .card__wind-info {
   color: var(--color-text-white);
 }
 
-.big-card:active {
+.card:active {
   filter: drop-shadow(0 8px 20px rgba(11, 23, 78, 0.5));
 }
 
-.big-card--shadow {
+.card--shadow {
   pointer-events: none;
   opacity: 0.3;
   background-color: var(--color-blue-light);
 }
 
-.big-card--shadow .big-card__header {
+.card--shadow .card__header {
   background-color: var(--color-transparent);
 }
 
-.big-card--shadow .big-card__content {
+.card--shadow .card__content {
   background-color: var(--color-blue-deep);
 }
 
-.big-card--shadow .big-card__city,
-.big-card--shadow .big-card__temperature,
-.big-card--shadow .big-card__wind-info {
+.card--shadow .card__city,
+.card--shadow .card__temperature,
+.card--shadow .card__wind-info {
   color: var(--color-text-white);
 }
 
-.big-card--empty {
+.card--empty {
   pointer-events: none;
   min-height: 172px;
   background-color: rgba(247, 248, 255, 0.3);
   border: 2px dashed var(--color-border);
 }
 
-.big-card--empty.hidden-block {
+.card--empty.hidden-block {
   display: none;
 }
 
-.big-card__full {
+.card__full {
   display: flex;
   flex-direction: column;
 }
 
-.big-card__full-condition {
+.card__full-condition {
   display: flex;
   align-items: center;
 }
 
-.big-card__full-condition--position {
+.card__full-condition--position {
   display: flex;
   position: absolute;
   top: 8%;
@@ -237,14 +238,94 @@
   text-align: center;
 }
 
-.big-card__full-condition--position img {
+.card__full-condition--position img {
   width: 50px;
   height: 50px;
 }
 
-.big-card__full-item {
+.card__full-item {
   display: flex;
   flex-direction: column;
   position: relative;
 }
+
+.card--clear-d {
+  background-image: url(/img/clear-d.jpeg)
+}
+
+.card--clear-n {
+  background-image: url(/img/clear-n.jpeg)
+}
+
+.card--clouds-d {
+  background-image: url(/img/clouds-d.jpeg)
+}
+
+.card--clouds-n {
+  background-image: url(/img/clouds-n.jpeg)
+}
+
+.card--drizzle-d {
+  background-image: url(/img/drizzle-d.jpeg)
+}
+
+.card--drizzle-n {
+  background-image: url(/img/drizzle-n.jpeg)
+}
+
+.card--foggy-d {
+  background-image: url(/img/foggy-d.jpeg)
+}
+
+.card--foggy-n {
+  background-image: url(/img/foggy-n.jpeg)
+}
+
+.card--rain-d {
+  background-image: url(/img/rain-d.jpeg)
+}
+
+.card--rain-n {
+  background-image: url(/img/rain-n.jpeg)
+}
+
+.card--snow-d {
+  background-image: url(/img/snow-d.jpeg)
+}
+
+.card--snow-n {
+  background-image: url(/img/snow-n.jpeg)
+}
+
+.card--thunderstorm-d {
+  background-image: url(/img/thunderstorm-d.jpeg)
+}
+
+.card--thunderstorm-n {
+  background-image: url(/img/thunderstorm-n.jpeg)
+}
+
+.card--clear-d,
+.card--clear-n,
+.card--clouds-d,
+.card--clouds-n,
+.card--drizzle-d,
+.card--drizzle-n,
+.card--foggy-d,
+.card--foggy-n,
+.card--rain-n,
+.card--rain-d,
+.card--snow-d,
+.card--snow-n,
+.card--thunderstorm-n,
+.card--thunderstorm-d {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.card--active {
+  background: none;
+}
+
 

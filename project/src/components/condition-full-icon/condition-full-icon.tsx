@@ -9,7 +9,7 @@ type ConditionFullIconProps = {
 export default function ConditionFullIcon({ weatherCondition }: ConditionFullIconProps): JSX.Element {
 
   return (
-    <div className="big-card__full-condition big-card__full-condition--position">
+    <div className="card__full-condition card__full-condition--position">
       <ConditionIcon key={weatherCondition.id} iconName={weatherCondition.icon} />
       <span>{convertToUpperCase(weatherCondition.description)}</span>
     </div>
