@@ -15,13 +15,13 @@ export const weatherData = createSlice({
       state.weatherCards.filter((card) => card.city.id !== action.payload);
     },
     updateWeatherCards: (state, action) => {
-      //drag and drop
+      state.weatherCards = action.payload;
     }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchWeatherAction.fulfilled, (state, action) => {
-        state.weatherCards.push(action.payload);
+        state.weatherCards.push({...action.payload, order: state.weatherCards.length});
       });
   }
 });

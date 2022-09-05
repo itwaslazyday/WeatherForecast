@@ -17,9 +17,14 @@ type CardProps = {
   scrollCard: number | null
   setActiveCard: (id: number | null) => void
   setFullCard: (id: number | null) => void
+  onDragStart: (card: WeatherCard) => void;
+  onDragEnd: (evt: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (evt: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (evt: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (evt: React.DragEvent<HTMLDivElement>, card: WeatherCard) => void;
 }
 
-export default function Card({ weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard }: CardProps): JSX.Element {
+export default function Card({ weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, onDragStart, onDragEnd, onDragOver, onDragLeave, onDrop}: CardProps): JSX.Element {
   const cardContainer = useRef<HTMLDivElement | null>(null);
   const { city, list } = weatherCard;
   const { timezone } = city;
@@ -45,6 +50,10 @@ export default function Card({ weatherCard, activeCard, fullCard, scrollCard, se
       onClick={() => fullCard === city.id ? setFullCard(null) : setFullCard(city.id)}
       onMouseOver={() => setActiveCard(city.id)}
       onMouseLeave={() => setActiveCard(null)}
+      draggable
+      onDragStart={() => onDragStart(weatherCard)}
+      onDragOver={(evt) => onDragOver(evt)}
+      onDrop={(evt) => onDrop(evt, weatherCard)}
     >
       <div className="card__header">
         <span className="icon icon--strips-big"></span>

@@ -41,6 +41,7 @@ export type Condition = {
 }
 
 export type WeatherCard = {
+  order: number;
   cod: number
   message: number
   cnt: number
