@@ -54,7 +54,6 @@ export default function BigCardList({weatherCards, activeCard, fullCard, scrollC
   };
 
   const sortCards = (a: WeatherCard, b: WeatherCard) => (a.order - b.order);
-
   return (
     <div className="weather-content__big-cards">
       {

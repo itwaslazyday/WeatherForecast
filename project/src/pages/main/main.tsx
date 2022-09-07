@@ -18,7 +18,7 @@ export default function Main(): JSX.Element {
         <div className="weather-app__content weather-content">
           <section className="sort-search">
             <div className="sort-search__wrapper">
-              <Sort />
+              <Sort setFullCard={setFullCard}/>
             </div>
           </section>
           <section className="weather-content__result">

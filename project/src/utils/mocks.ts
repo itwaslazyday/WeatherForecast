@@ -156,7 +156,6 @@ const getDayList = (count: number, card: WeatherCard) => {
   const date = new Date(currentDate.setDate(currentDate.getDate() + count)).getDate();
   const dayList = card.list.filter((item) => new Date(item.dt * 1000).getDate() === date);
   const dayListAdapted = dayList.map((item) => adaptConditionToClient(item));
-  // console.log('dayListAdapted', dayListAdapted);
   return dayListAdapted;
 };
 

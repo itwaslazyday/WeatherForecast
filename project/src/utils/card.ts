@@ -32,16 +32,16 @@ const getWindDirection = (degrees: number) => {
     case WIND_DEGREES.NORTH:
       return 'Северный';
       break;
-    case degrees > WIND_DEGREES.default && degrees < WIND_DEGREES.EAST ? true : degrees:
+    case degrees > WIND_DEGREES.default && degrees < WIND_DEGREES.EAST ? degrees : 0:
       return 'СВ';
       break;
-    case degrees > WIND_DEGREES.EAST && degrees < WIND_DEGREES.SOUTH ? true : degrees:
+    case degrees > WIND_DEGREES.EAST && degrees < WIND_DEGREES.SOUTH ? degrees : 0:
       return 'ЮВ';
       break;
-    case degrees > WIND_DEGREES.SOUTH && degrees < WIND_DEGREES.WEST ? true : degrees:
+    case degrees > WIND_DEGREES.SOUTH && degrees < WIND_DEGREES.WEST ? degrees : 0:
       return 'ЮЗ';
       break;
-    case degrees > WIND_DEGREES.WEST && degrees < WIND_DEGREES.NORTH ? true : degrees:
+    case degrees > WIND_DEGREES.WEST && degrees < WIND_DEGREES.NORTH ? degrees : 0:
       return 'СЗ';
       break;
   }
