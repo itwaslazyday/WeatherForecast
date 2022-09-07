@@ -2,3 +2,20 @@
   display: flex;
 }
 
+.sort__button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #fff;
+  background-color: transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sort__button:hover {
+  box-shadow: 0 4px 10px rgb(11 23 78 / 50%);
+}
+
+.sort__button:active {
+  opacity: 0.7;
+}
+
