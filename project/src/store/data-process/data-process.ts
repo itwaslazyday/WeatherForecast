@@ -12,7 +12,7 @@ export const weatherData = createSlice({
   initialState,
   reducers: {
     removeWeatherCard: (state, action) => {
-      state.weatherCards.filter((card) => card.city.id !== action.payload);
+      state.weatherCards = state.weatherCards.filter((card) => card.order !== action.payload);
     },
     updateWeatherCards: (state, action) => {
       state.weatherCards = action.payload;
@@ -26,4 +26,4 @@ export const weatherData = createSlice({
   }
 });
 
-export const { removeWeatherCard, updateWeatherCards } = weatherData.actions;
+export const {removeWeatherCard, updateWeatherCards} = weatherData.actions;

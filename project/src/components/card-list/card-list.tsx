@@ -73,7 +73,9 @@ export default function BigCardList({weatherCards, activeCard, fullCard, scrollC
               setActiveCard={setActiveCard}
               setFullCard={setFullCard}
             />)) :
-          <div className="weather-content__help">Выберите город, погода в котором вам интересна</div>
+          <div className="weather-content__help">
+            Карточки городов можно менять местами, а также удалять, перетягивая на область карты.
+          </div>
       }
     </div>
   );
