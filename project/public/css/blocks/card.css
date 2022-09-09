@@ -6,7 +6,7 @@
   height: 100%;
   color: #fff;
   border-radius: 7px;
-  cursor: pointer;
+  cursor: move;
   transition: filter var(--transition-base);
   backdrop-filter: blur(1px);
   outline: none;
