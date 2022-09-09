@@ -122,11 +122,10 @@
 }
 
 .drop-place::before {
-  z-index: 1001;
   display: block;
   position: absolute;
   content: '';
-  z-index: 2000;
+  z-index: 500;
   width: 100%;
   height: 100%;
   backdrop-filter: blur(5px);

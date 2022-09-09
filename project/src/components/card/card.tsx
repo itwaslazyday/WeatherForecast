@@ -6,27 +6,24 @@ import {convertToCelsius, getWindDirection} from '../../utils/card';
 import dayjs from 'dayjs';
 import {adaptConditionToClient} from 'utils/api';
 import {getFutureDaysTemps} from 'utils/mocks';
-import {useDrag} from 'react-dnd';
+import {useDrag, useDrop} from 'react-dnd';
 
 import UTC from 'dayjs/plugin/utc';
 dayjs.extend(UTC);
 
 type CardProps = {
   weatherCard: WeatherCard;
+  index: number;
   activeCard: number | null;
   fullCard: number | null;
   scrollCard: number | null;
   setActiveCard: (id: number | null) => void;
   setFullCard: (id: number | null) => void;
-  onDragStart: (card: WeatherCard) => void;
-  onDragEnd: (evt: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (evt: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (evt: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (evt: React.DragEvent<HTMLDivElement>, card: WeatherCard) => void;
+  handleCardMove: (dragIndex: number, hoverIndex: number) => void;
 }
 
-export default function Card({ weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, onDragStart, onDragEnd, onDragOver, onDragLeave, onDrop}: CardProps): JSX.Element {
-  const cardContainer = useRef<HTMLDivElement | null>(null);
+export default function Card ({weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, handleCardMove, index}: CardProps): JSX.Element {
+  const ref = useRef<HTMLDivElement | null>(null);
   const {city, list} = weatherCard;
   const {timezone} = city;
   const {wind, main, weather} = adaptConditionToClient(list[1]);
@@ -35,17 +32,46 @@ export default function Card({ weatherCard, activeCard, fullCard, scrollCard, se
   const cardLocalTimeHours = Number(cardLocalTime.format('HH'));
   const cardsBackgroundPrefix = cardLocalTimeHours >= 20 || cardLocalTimeHours < 6 ? 'n' : 'd';
 
-  const [collected, dragRef] = useDrag(() =>({
+  const [, drag] = useDrag(() =>({
     type: 'weatherCard',
     item: weatherCard,
-    // collect: (monitor) => ({
-    //   isDragging: !!monitor.isDragging()
-    // })
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging()
+    })
+  }));
+
+  const [, drop] = useDrop(() =>({
+    accept: 'weatherCard',
+    hover(item: WeatherCard, monitor) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.order;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      // const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      // const clientOffset = monitor.getClientOffset() as any;
+      // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      //   return;
+      // }
+
+      // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      //   return;
+      // }
+
+      handleCardMove(dragIndex, hoverIndex);
+      // item.order = hoverIndex;
+    },
   }));
 
   useEffect(() => {
     if (scrollCard === city.id) {
-      cardContainer.current?.scrollIntoView({
+      ref.current?.scrollIntoView({
         block: 'start',
         behavior: 'smooth',
       });
@@ -57,19 +83,18 @@ export default function Card({ weatherCard, activeCard, fullCard, scrollCard, se
   //   dragRef = el;
   // };
 
+  drag(drop(ref));
+
   return (
     <div
       className={`card ${fullCard === city.id ? 'card--full' : ''} ${activeCard === city.id ? 'card--active' : `card--${(weather[0].main).toLowerCase()}-${cardsBackgroundPrefix}`}`}
       // ref={cardContainer}
       // ref={(el) => refHanlder(el)}
-      ref={dragRef}
+      ref={ref}
       onClick={() => fullCard === city.id ? setFullCard(null) : setFullCard(city.id)}
       onMouseOver={() => setActiveCard(city.id)}
       onMouseLeave={() => setActiveCard(null)}
       draggable
-      onDragStart={() => onDragStart(weatherCard)}
-      onDragOver={(evt) => onDragOver(evt)}
-      onDrop={(evt) => onDrop(evt, weatherCard)}
     >
       <div className="card__header">
         <span className="icon icon--strips-big"></span>
