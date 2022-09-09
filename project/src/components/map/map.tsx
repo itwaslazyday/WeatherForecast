@@ -7,6 +7,9 @@ import UseMapCenter from 'hooks/useMapCenter/useMapCenter';
 import { Coord, WeatherCard } from 'types/card';
 import { useEffect, useState } from 'react';
 import { currentCustomIcon, defaultCustomIcon, DEFAULT_LAT, DEFAULT_LON, DEFAULT_ZOOM } from 'const/map';
+import {useDrop} from 'react-dnd';
+import {useAppDispatch} from 'hooks';
+import {removeWeatherCard} from 'store/data-process/data-process';
 
 type MapProps = {
   cards: WeatherCard[]
@@ -19,6 +22,19 @@ type MapProps = {
 
 export default function Map({ cards, activeCard, fullCard, setActiveCard, setFullCard, setScrollCard }: MapProps): JSX.Element {
   const [mapCenter, setMapCenter] = useState<Coord>({ lat: DEFAULT_LAT, lon: DEFAULT_LON });
+  const dispatch = useAppDispatch();
+
+  const extractDroppedCard = (order: number) => {
+    dispatch(removeWeatherCard(order));
+  };
+
+  const [{isOver}, dropRef] = useDrop(() =>({
+    accept: 'weatherCard',
+    drop: (item: WeatherCard) => extractDroppedCard(item.order),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver()
+    })
+  }));
 
 
   const setMarkers = (card: WeatherCard) => {
@@ -57,7 +73,7 @@ export default function Map({ cards, activeCard, fullCard, setActiveCard, setFul
   }, [fullCard, cards]);
 
   return (
-    <div className="weather-app__map weather-map">
+    <div className={`weather-app__map weather-map ${isOver ? 'drop-place' : ''}`} ref={dropRef}>
       <MapContainer
         center={[DEFAULT_LAT, DEFAULT_LON]}
         zoom={DEFAULT_ZOOM}

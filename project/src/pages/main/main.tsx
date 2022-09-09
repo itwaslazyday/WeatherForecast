@@ -2,7 +2,6 @@ import { useAppSelector } from 'hooks/index';
 import { useState } from 'react';
 import CardList from 'components/card-list/card-list';
 import Map from 'components/map/map';
-import DropPlace from 'components/drop-place/drop-place';
 import Sort from 'components/sort/sort';
 import { getWeatherCards } from 'store/data-process/selector';
 
@@ -34,7 +33,6 @@ export default function Main(): JSX.Element {
             />
           </section>
         </div>
-        <DropPlace />
         <Map cards={weatherCards} activeCard={activeCard} fullCard={fullCard} setActiveCard={setActiveCard} setFullCard={setFullCard} setScrollCard={setScrollCard} />
       </section>
     </main>

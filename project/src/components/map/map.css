@@ -121,3 +121,17 @@
   cursor: pointer;
 }
 
+.drop-place::before {
+  z-index: 1001;
+  display: block;
+  position: absolute;
+  content: '';
+  z-index: 2000;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  color: darkslategray;
+  background: url(../../../public/img/drop-place-bin.svg) center no-repeat;
+  background-size: 90px;
+}
+
