@@ -7,13 +7,16 @@ import dayjs from 'dayjs';
 import {adaptConditionToClient} from 'utils/api';
 import {getFutureDaysTemps} from 'utils/mocks';
 import {useDrag, useDrop} from 'react-dnd';
+import {resetCityRepeatId} from 'store/data-process/data-process';
 
 import UTC from 'dayjs/plugin/utc';
+import { useAppDispatch } from 'hooks';
 dayjs.extend(UTC);
 
 type CardProps = {
   weatherCard: WeatherCard;
   index: number;
+  existingCardId: undefined | number;
   activeCard: number | null;
   fullCard: number | null;
   scrollCard: number | null;
@@ -22,7 +25,8 @@ type CardProps = {
   handleCardMove: (dragIndex: number, hoverIndex: number) => void;
 }
 
-export default function Card ({weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, handleCardMove, index}: CardProps): JSX.Element {
+export default function Card ({weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, handleCardMove, index, existingCardId}: CardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement | null>(null);
   const {city, list} = weatherCard;
   const {timezone} = city;
@@ -32,6 +36,13 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
   const cardLocalTimeHours = Number(cardLocalTime.format('HH'));
   const cardsBackgroundPrefix = cardLocalTimeHours >= 20 || cardLocalTimeHours < 6 ? 'n' : 'd';
 
+  const resetExistingCardId = () => setTimeout(() => {
+    dispatch(resetCityRepeatId());
+  }, 1500);
+
+  if (city.id === existingCardId) {
+    resetExistingCardId();
+  }
   const [, drag] = useDrag(() =>({
     type: 'weatherCard',
     item: weatherCard,
@@ -78,23 +89,17 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
     }
   }, [city.id, scrollCard]);
 
-  // const refHanlder = (el: HTMLDivElement | null) => {
-  //   cardContainer.current = el;
-  //   dragRef = el;
-  // };
-
   drag(drop(ref));
 
   return (
     <div
-      className={`card ${fullCard === city.id ? 'card--full' : ''} ${activeCard === city.id ? 'card--active' : `card--${(weather[0].main).toLowerCase()}-${cardsBackgroundPrefix}`}`}
-      // ref={cardContainer}
-      // ref={(el) => refHanlder(el)}
+      className={`card ${fullCard === city.id ? 'card--full' : ''}
+        ${activeCard === city.id ? 'card--active' : `card--${(weather[0].main).toLowerCase()}-${cardsBackgroundPrefix}`}
+        ${city.id === existingCardId ? 'card-shaking' : ''}`}
       ref={ref}
       onClick={() => fullCard === city.id ? setFullCard(null) : setFullCard(city.id)}
-      onMouseOver={() => setActiveCard(city.id)}
-      onMouseLeave={() => setActiveCard(null)}
-      draggable
+      // onMouseOver={() => setActiveCard(city.id)}
+      // onMouseLeave={() => setActiveCard(null)}
     >
       <div className="card__header">
         <span className="icon icon--strips-big"></span>

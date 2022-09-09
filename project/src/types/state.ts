@@ -3,6 +3,7 @@ import { store } from 'store/index.js';
 
 export type DataProcess = {
   weatherCards: WeatherCard[];
+  cityRepeatId: undefined | number;
 }
 
 export type ErrorsProcess = {
