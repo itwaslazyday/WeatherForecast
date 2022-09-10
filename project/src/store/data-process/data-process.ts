@@ -5,6 +5,7 @@ import { DataProcess } from 'types/state';
 
 const initialState: DataProcess = {
   weatherCards: [],
+  cityRepeatId: undefined
 };
 
 export const weatherData = createSlice({
@@ -16,14 +17,22 @@ export const weatherData = createSlice({
     },
     updateWeatherCards: (state, action) => {
       state.weatherCards = action.payload;
+    },
+    resetCityRepeatId: (state) => {
+      state.cityRepeatId = undefined;
     }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchWeatherAction.fulfilled, (state, action) => {
-        state.weatherCards.push({...action.payload, order: state.weatherCards.length});
+        const existingCard = state.weatherCards.find((item) => action.payload.city.id === item.city.id);
+        if (!existingCard) {
+          state.weatherCards.push({...action.payload, order: state.weatherCards.length});
+        } else {
+          state.cityRepeatId = existingCard?.city.id;
+        }
       });
   }
 });
 
-export const {removeWeatherCard, updateWeatherCards} = weatherData.actions;
+export const {removeWeatherCard, updateWeatherCards, resetCityRepeatId} = weatherData.actions;
