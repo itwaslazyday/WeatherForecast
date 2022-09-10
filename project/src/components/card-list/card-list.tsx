@@ -2,22 +2,21 @@ import Card from 'components/card/card';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useEffect, useState } from 'react';
 import {updateWeatherCards} from 'store/data-process/data-process';
-import { getCityRepeatId } from 'store/data-process/selector';
 import { WeatherCard } from 'types/card';
 
 
 type CardListProps = {
   weatherCards: WeatherCard[];
-  activeCard: number | null
-  fullCard: number | null
-  scrollCard: number | null
-  setActiveCard: (id: number | null) => void
-  setFullCard: (id: number | null) => void
+  activeCard: number | null;
+  fullCard: number | null;
+  scrollCard: number | null | undefined;
+  setActiveCard: (id: number | null) => void;
+  setFullCard: (id: number | null) => void;
+  existingCardId: undefined | number;
 };
 
-export default function CardList ({weatherCards, activeCard, fullCard, scrollCard, setActiveCard, setFullCard}: CardListProps): JSX.Element {
+export default function CardList ({weatherCards, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, existingCardId}: CardListProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const existingCardId = useAppSelector(getCityRepeatId);
 
   const [cardList, setCardList] = useState<WeatherCard[]>([]);
 
@@ -30,11 +29,11 @@ export default function CardList ({weatherCards, activeCard, fullCard, scrollCar
   const sortCards = (a: WeatherCard, b: WeatherCard) => (a.order - b.order);
 
   const handleCardMove = (dragIndex: number, hoverIndex: number) => {
-    console.log('cardList2', cardList);
-    console.log('dragIndex', dragIndex);
+    // console.log('cardList2', cardList);
+    // console.log('dragIndex', dragIndex);
     console.log('hoverIndex', hoverIndex);
     const a = JSON.parse(JSON.stringify(cardList));
-    console.log('a', a);
+    // console.log('a', a);
     console.log(a.map((item: any) => {
       if (item.order === hoverIndex) {
         // eslint-disable-next-line no-alert
@@ -62,7 +61,7 @@ export default function CardList ({weatherCards, activeCard, fullCard, scrollCar
   };
 
   return (
-    <div className="weather-content__big-cards">
+    <div className="weather-content__cards">
       {
         weatherCards.length !== 0 ?
           weatherCards.slice().sort(sortCards).map((card) => (

@@ -14,12 +14,12 @@
   left: 5%;
   flex-shrink: 0;
   width: 325px;
-  overflow: hidden;
+  /* overflow: hidden; */
   min-height: 230px;
   max-height: 90%;
-  overflow: auto;
+  /* overflow: auto; */
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   box-shadow: 0 0 40px rgba(11, 23, 78, 0.5);
@@ -27,10 +27,10 @@
   padding: 10px;
 }
 
-.weather-app__content::-webkit-scrollbar {
+/* .weather-app__content::-webkit-scrollbar {
   width: 0;
   height: 0;
-}
+} */
 
 .weather-app__map {
   flex-grow: 1;
