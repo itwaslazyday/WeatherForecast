@@ -28,6 +28,7 @@ export const weatherData = createSlice({
         const existingCard = state.weatherCards.find((item) => action.payload.city.id === item.city.id);
         if (!existingCard) {
           state.weatherCards.push({...action.payload, order: state.weatherCards.length});
+          state.cityRepeatId = undefined;
         } else {
           state.cityRepeatId = existingCard?.city.id;
         }

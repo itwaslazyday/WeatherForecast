@@ -1,13 +1,12 @@
 import FullCard from 'components/card-full/full-card';
 import ConditionIcon from 'components/condition-icon/condition-icon';
-import {useEffect, useMemo, useRef} from 'react';
+import {useMemo, useRef} from 'react';
 import {WeatherCard} from 'types/card';
 import {convertToCelsius, getWindDirection} from '../../utils/card';
 import dayjs from 'dayjs';
 import {adaptConditionToClient} from 'utils/api';
 import {getFutureDaysTemps} from 'utils/mocks';
 import {useDrag, useDrop} from 'react-dnd';
-import {resetCityRepeatId} from 'store/data-process/data-process';
 
 import UTC from 'dayjs/plugin/utc';
 import { useAppDispatch } from 'hooks';
@@ -19,7 +18,7 @@ type CardProps = {
   existingCardId: undefined | number;
   activeCard: number | null;
   fullCard: number | null;
-  scrollCard: number | null;
+  scrollCard: number | null | undefined;
   setActiveCard: (id: number | null) => void;
   setFullCard: (id: number | null) => void;
   handleCardMove: (dragIndex: number, hoverIndex: number) => void;
@@ -36,13 +35,13 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
   const cardLocalTimeHours = Number(cardLocalTime.format('HH'));
   const cardsBackgroundPrefix = cardLocalTimeHours >= 20 || cardLocalTimeHours < 6 ? 'n' : 'd';
 
-  const resetExistingCardId = () => setTimeout(() => {
-    dispatch(resetCityRepeatId());
-  }, 1500);
-
-  if (city.id === existingCardId) {
-    resetExistingCardId();
+  if (scrollCard === city.id) {
+    ref.current?.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+    });
   }
+
   const [, drag] = useDrag(() =>({
     type: 'weatherCard',
     item: weatherCard,
@@ -79,15 +78,6 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
       // item.order = hoverIndex;
     },
   }));
-
-  useEffect(() => {
-    if (scrollCard === city.id) {
-      ref.current?.scrollIntoView({
-        block: 'start',
-        behavior: 'smooth',
-      });
-    }
-  }, [city.id, scrollCard]);
 
   drag(drop(ref));
 

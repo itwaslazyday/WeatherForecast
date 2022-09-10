@@ -1,5 +1,6 @@
-.sort {
+.sort__button-wrapper {
   display: flex;
+  justify-content: flex-end;
 }
 
 .sort__button {

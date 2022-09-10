@@ -1,15 +1,22 @@
 import { useAppSelector } from 'hooks/index';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardList from 'components/card-list/card-list';
 import Map from 'components/map/map';
 import Sort from 'components/sort/sort';
-import { getWeatherCards } from 'store/data-process/selector';
+import { getCityRepeatId, getWeatherCards } from 'store/data-process/selector';
 
 export default function Main(): JSX.Element {
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [fullCard, setFullCard] = useState<number | null>(null);
   const [scrollCard, setScrollCard] = useState<number | null>(null);
   const weatherCards = useAppSelector(getWeatherCards);
+  const existingCardId = useAppSelector(getCityRepeatId);
+
+  useEffect(() => {
+    existingCardId ?
+      setScrollCard(existingCardId) :
+      setScrollCard(weatherCards[weatherCards.length - 1]?.city.id);
+  }, [existingCardId, weatherCards]);
 
   return (
     <main>
@@ -25,6 +32,7 @@ export default function Main(): JSX.Element {
             <h2 className="visually-hidden">Результаты сортировки</h2>
             <CardList
               weatherCards={weatherCards}
+              existingCardId={existingCardId}
               activeCard={activeCard}
               fullCard={fullCard}
               scrollCard={scrollCard}
