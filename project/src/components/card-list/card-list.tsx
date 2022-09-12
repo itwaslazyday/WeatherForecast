@@ -1,9 +1,8 @@
 import Card from 'components/card/card';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {updateWeatherCards} from 'store/data-process/data-process';
 import { WeatherCard } from 'types/card';
-
 
 type CardListProps = {
   weatherCards: WeatherCard[];
@@ -24,40 +23,20 @@ export default function CardList ({weatherCards, activeCard, fullCard, scrollCar
     setCardList(weatherCards.map((item) => (item)));
   }, [weatherCards]);
 
-  console.log('cardList1', cardList);
+  console.log('cardList1', cardList); // Выводит актуальное состояние списка карточек до вызова обработчика.
 
   const sortCards = (a: WeatherCard, b: WeatherCard) => (a.order - b.order);
 
+
   const handleCardMove = (dragIndex: number, hoverIndex: number) => {
-    // console.log('cardList2', cardList);
-    // console.log('dragIndex', dragIndex);
-    console.log('hoverIndex', hoverIndex);
-    const a = JSON.parse(JSON.stringify(cardList));
-    // console.log('a', a);
-    console.log(a.map((item: any) => {
-      if (item.order === hoverIndex) {
-        // eslint-disable-next-line no-alert
-        alert('1');
-        return ({...item, order: dragIndex});
-      }
-      if (item.order === dragIndex) {
-        // eslint-disable-next-line no-alert
-        alert('2');
-        return ({...item, order: hoverIndex});
-      }
-      // eslint-disable-next-line no-alert
-      alert('3');
-      return item;
-    }));
-    // dispatch(updateWeatherCards(cardList.map((item) => {
-    //   if (item.order === hoverIndex) {
-    //     return ({...item, order: dragIndex});
-    //   }
-    //   if (item.order === dragIndex) {
-    //     return ({...item, order: hoverIndex});
-    //   }
-    //   return item;
-    // })));
+    console.log('dragIndex, hoverIndex', dragIndex, hoverIndex);
+    console.log('cardList3', weatherCards); // Это данные из пропсов, они же - из глобального состояния.
+    console.log('cardList2', cardList); // Обработчик вызван, но ыыводит какие-то чудеса и странности
+
+    // const draggedCard = cardList[dragIndex];
+    // cardList.splice(dragIndex, 1);
+    // cardlist.splice(hoverIndex, 0, draggedCard);
+    // dispatch(updateWeatherCards(cardlist);
   };
 
   return (
@@ -69,7 +48,6 @@ export default function CardList ({weatherCards, activeCard, fullCard, scrollCar
               key={card.city.id}
               weatherCard={card}
               existingCardId={existingCardId}
-              index={card.order}
               activeCard={activeCard}
               fullCard={fullCard}
               scrollCard={scrollCard}

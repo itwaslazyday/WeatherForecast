@@ -9,12 +9,10 @@ import {getFutureDaysTemps} from 'utils/mocks';
 import {useDrag, useDrop} from 'react-dnd';
 
 import UTC from 'dayjs/plugin/utc';
-import { useAppDispatch } from 'hooks';
 dayjs.extend(UTC);
 
 type CardProps = {
   weatherCard: WeatherCard;
-  index: number;
   existingCardId: undefined | number;
   activeCard: number | null;
   fullCard: number | null;
@@ -24,8 +22,7 @@ type CardProps = {
   handleCardMove: (dragIndex: number, hoverIndex: number) => void;
 }
 
-export default function Card ({weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, handleCardMove, index, existingCardId}: CardProps): JSX.Element {
-  const dispatch = useAppDispatch();
+export default function Card ({weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, handleCardMove, existingCardId}: CardProps): JSX.Element {
   const ref = useRef<HTMLDivElement | null>(null);
   const {city, list} = weatherCard;
   const {timezone} = city;
@@ -52,31 +49,39 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
 
   const [, drop] = useDrop(() =>({
     accept: 'weatherCard',
-    hover(item: WeatherCard, monitor) {
-      if (!ref.current) {
-        return;
+    hover({ order: dragIndex }: WeatherCard) {
+      const hoverIndex = weatherCard.order;
+      if (dragIndex !== weatherCard.order) {
+        handleCardMove(dragIndex, hoverIndex); // Здесь передаются индексы двух карточек: которую тянут, и куда тянут.
       }
-      const dragIndex = item.order;
-      const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
+    }
 
-      // const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // const clientOffset = monitor.getClientOffset() as any;
-      // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      //   return;
-      // }
+    // hover(item: WeatherCard, monitor) {
+    //   if (!ref.current) {
+    //     return;
+    //   }
+    //   const dragIndex = item.order;
+    //   const hoverIndex = weatherCard.order;
+    //   console.log('hovercard', weatherCard);
+    //   if (dragIndex === hoverIndex) {
+    //     return;
+    //   }
 
-      // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      //   return;
-      // }
+    //   // const hoverBoundingRect = ref.current?.getBoundingClientRect();
+    //   // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    //   // const clientOffset = monitor.getClientOffset() as any;
+    //   // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    //   // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+    //   //   return;
+    //   // }
 
-      handleCardMove(dragIndex, hoverIndex);
-      // item.order = hoverIndex;
-    },
+    //   // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+    //   //   return;
+    //   // }
+
+    //   handleCardMove(dragIndex, hoverIndex);
+    //   // item.order = hoverIndex;
+    // },
   }));
 
   drag(drop(ref));
