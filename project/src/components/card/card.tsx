@@ -24,7 +24,7 @@ type CardProps = {
 
 export default function Card ({weatherCard, activeCard, fullCard, scrollCard, setActiveCard, setFullCard, handleCardMove, existingCardId}: CardProps): JSX.Element {
   const ref = useRef<HTMLDivElement | null>(null);
-  const {city, list} = weatherCard;
+  const {city, list, order} = weatherCard;
   const {timezone} = city;
   const {wind, main, weather} = adaptConditionToClient(list[1]);
   const futureDaysTemps = useMemo(() => getFutureDaysTemps(weatherCard), [weatherCard]);
@@ -49,39 +49,13 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
 
   const [, drop] = useDrop(() =>({
     accept: 'weatherCard',
-    hover({ order: dragIndex }: WeatherCard) {
-      const hoverIndex = weatherCard.order;
-      if (dragIndex !== weatherCard.order) {
-        handleCardMove(dragIndex, hoverIndex); // Здесь передаются индексы двух карточек: которую тянут, и куда тянут.
+    hover(item: WeatherCard) {
+      const dragIndex = item.order;
+      const hoverIndex = order;
+      if (dragIndex !== hoverIndex) {
+        handleCardMove(dragIndex, hoverIndex);
       }
     }
-
-    // hover(item: WeatherCard, monitor) {
-    //   if (!ref.current) {
-    //     return;
-    //   }
-    //   const dragIndex = item.order;
-    //   const hoverIndex = weatherCard.order;
-    //   console.log('hovercard', weatherCard);
-    //   if (dragIndex === hoverIndex) {
-    //     return;
-    //   }
-
-    //   // const hoverBoundingRect = ref.current?.getBoundingClientRect();
-    //   // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    //   // const clientOffset = monitor.getClientOffset() as any;
-    //   // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-    //   // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-    //   //   return;
-    //   // }
-
-    //   // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-    //   //   return;
-    //   // }
-
-    //   handleCardMove(dragIndex, hoverIndex);
-    //   // item.order = hoverIndex;
-    // },
   }));
 
   drag(drop(ref));
@@ -93,8 +67,8 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
         ${city.id === existingCardId ? 'card-shaking' : ''}`}
       ref={ref}
       onClick={() => fullCard === city.id ? setFullCard(null) : setFullCard(city.id)}
-      // onMouseOver={() => setActiveCard(city.id)}
-      // onMouseLeave={() => setActiveCard(null)}
+      onMouseOver={() => setActiveCard(city.id)}
+      onMouseLeave={() => setActiveCard(null)}
     >
       <div className="card__header">
         <span className="icon icon--strips-big"></span>

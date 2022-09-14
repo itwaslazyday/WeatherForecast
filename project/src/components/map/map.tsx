@@ -20,11 +20,12 @@ type MapProps = {
   setScrollCard: (id: number | null) => void
 }
 
-export default function Map({ cards, activeCard, fullCard, setActiveCard, setFullCard, setScrollCard }: MapProps): JSX.Element {
+export default function Map({cards, activeCard, fullCard, setActiveCard, setFullCard, setScrollCard }: MapProps): JSX.Element {
   const [mapCenter, setMapCenter] = useState<Coord>({ lat: DEFAULT_LAT, lon: DEFAULT_LON });
   const dispatch = useAppDispatch();
 
   const extractDroppedCard = (order: number) => {
+    console.log('removeOrder', order);
     dispatch(removeWeatherCard(order));
   };
 
@@ -41,6 +42,7 @@ export default function Map({ cards, activeCard, fullCard, setActiveCard, setFul
     const { lat, lon } = card.city.coord;
     return (
       <Marker
+        key={card.city.id}
         position={[lat, lon]}
         icon={card.city.id === activeCard ? currentCustomIcon : defaultCustomIcon}
         eventHandlers={{
