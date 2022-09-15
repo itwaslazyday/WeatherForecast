@@ -2,7 +2,7 @@ import { Icon } from 'leaflet';
 
 const DEFAULT_LAT = 55.751244;
 const DEFAULT_LON = 37.618423;
-const DEFAULT_ZOOM = 10;
+const DEFAULT_ZOOM = 12;
 
 const defaultCustomIcon = new Icon({
   iconUrl: '/img/icon/pin.svg',

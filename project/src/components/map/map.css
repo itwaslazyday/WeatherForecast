@@ -29,7 +29,12 @@
 }
 
 .leaflet-touch .leaflet-control-geosearch a:hover {
-  box-shadow: 0 4px 10px rgb(11 23 78 / 50%);
+  box-shadow: 0 0 15px rgb(244 244 244 / 70%);
+}
+
+.leaflet-touch .leaflet-control-geosearch a:active {
+  opacity: 0.8;
+  border: none;
 }
 
 .leaflet-geosearch-button.active a:last-child {

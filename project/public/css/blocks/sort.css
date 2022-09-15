@@ -6,6 +6,7 @@
 .sort__button {
   width: 40px;
   height: 40px;
+  padding: 0 9px;
   border: 1px solid #fff;
   background-color: transparent;
   border-radius: 3px;
@@ -13,10 +14,11 @@
 }
 
 .sort__button:hover {
-  box-shadow: 0 4px 10px rgb(11 23 78 / 50%);
+  box-shadow: 0 0 15px rgb(244 244 244 / 70%);
 }
 
 .sort__button:active {
-  opacity: 0.7;
+  opacity: 0.8;
+  border: none;
 }
 

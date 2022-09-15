@@ -1,19 +1,19 @@
 .weather-app {
   display: flex;
   width: 100%;
-  min-width: 1080px;
   height: 100vh;
-  min-height: 880px;
   overflow: hidden;
 }
 
 .weather-app__content {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   z-index: 1000;
   top: 5%;
   left: 5%;
   flex-shrink: 0;
-  width: 325px;
+  width: 320px;
   min-height: 230px;
   max-height: 90%;
   background-color: rgba(0, 0, 0, 0.4);

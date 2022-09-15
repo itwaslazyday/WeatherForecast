@@ -1,3 +1,7 @@
 .sort-search__wrapper {
   padding: 5px 20px 15px;
 }
+
+.sort-search {
+  flex-shrink: 0;
+}
