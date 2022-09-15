@@ -7,10 +7,11 @@ import L from 'leaflet';
 import { Coord } from 'types/card';
 
 type SearchControlProps = {
-  setMapCenter: (center: Coord) => void
+  setMapCenter: (center: Coord) => void;
+  setFullCard: (id: number | null) => void;
 }
 
-function SearchControl({ setMapCenter }: SearchControlProps) {
+function SearchControl({ setMapCenter, setFullCard }: SearchControlProps) {
   const map = useMap();
   const dispatch = useAppDispatch();
 
@@ -54,6 +55,7 @@ function SearchControl({ setMapCenter }: SearchControlProps) {
     const searchEventHandler = (result: any) => {
       const { x, y } = result.location;
       dispatch(fetchWeatherAction({ lat: y, lon: x }));
+      setFullCard(null);
       setMapCenter({ lat: y, lon: x });
     };
 

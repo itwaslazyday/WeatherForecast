@@ -1,6 +1,6 @@
 import FullCard from 'components/card-full/full-card';
 import ConditionIcon from 'components/condition-icon/condition-icon';
-import {useMemo, useRef} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 import {WeatherCard} from 'types/card';
 import {convertToCelsius, getWindDirection} from '../../utils/card';
 import dayjs from 'dayjs';
@@ -32,12 +32,14 @@ export default function Card ({weatherCard, activeCard, fullCard, scrollCard, se
   const cardLocalTimeHours = Number(cardLocalTime.format('HH'));
   const cardsBackgroundPrefix = cardLocalTimeHours >= 20 || cardLocalTimeHours < 6 ? 'n' : 'd';
 
-  if (scrollCard === city.id) {
-    ref.current?.scrollIntoView({
-      block: 'start',
-      behavior: 'smooth',
-    });
-  }
+  useEffect(() => {
+    if (scrollCard === city.id) {
+      ref.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      });
+    }
+  }, [city.id, scrollCard]);
 
   const [, drag] = useDrag(() =>({
     type: 'weatherCard',

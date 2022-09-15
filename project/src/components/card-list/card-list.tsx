@@ -20,13 +20,13 @@ export default function CardList ({weatherCards, activeCard, fullCard, scrollCar
   // console.log('weatherCards', weatherCards); // Выводит актуальный стор списка карточек до вызова обработчика.
 
   const handleCardMove = (dragIndex: number, hoverIndex: number) => {
-    // console.log('dragIndex, hoverIndex', dragIndex, hoverIndex);
-    console.log('weatherCards', weatherCards); // Стор фактически не меняется, но консоль выводит неверные данные. Зависит от наведения на карточку.
-    // const draggedCardList = [...weatherCards];
-    // const draggedCard = draggedCardList[dragIndex];
-    // draggedCardList.splice(dragIndex, 1);
-    // draggedCardList.splice(hoverIndex, 0, draggedCard);
-    // dispatch(updateWeatherCards(draggedCardList));
+  //   console.log('dragIndex, hoverIndex', dragIndex, hoverIndex);
+  //   console.log('weatherCards', weatherCards); // Стор фактически не меняется, но консоль выводит неверные данные. Зависит от наведения на карточку.
+  //   const draggedCardList = [...weatherCards];
+  //   const draggedCard = draggedCardList[dragIndex];
+  //   draggedCardList.splice(dragIndex, 1);
+  //   draggedCardList.splice(hoverIndex, 0, draggedCard);s
+  //   dispatch(updateWeatherCards(draggedCardList));
   };
   const sortCards = (a: WeatherCard, b: WeatherCard) => (a.order - b.order);
 

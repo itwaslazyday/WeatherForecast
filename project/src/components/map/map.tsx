@@ -25,7 +25,6 @@ export default function Map({cards, activeCard, fullCard, setActiveCard, setFull
   const dispatch = useAppDispatch();
 
   const extractDroppedCard = (order: number) => {
-    console.log('removeOrder', order);
     dispatch(removeWeatherCard(order));
   };
 
@@ -85,7 +84,7 @@ export default function Map({cards, activeCard, fullCard, setActiveCard, setFull
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
-        <SearchControl setMapCenter={setMapCenter} />
+        <SearchControl setMapCenter={setMapCenter} setFullCard={setFullCard}/>
         {cards.length !== 0 ? cards.map((card) => setMarkers(card)) : ''}
         <UseMapCenter center={mapCenter} />
       </MapContainer>

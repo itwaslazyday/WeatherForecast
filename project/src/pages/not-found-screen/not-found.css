@@ -1,5 +1,33 @@
 .not-found {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
   background: url(./404.png) center no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.not-found__link {
+  font-family: inherit;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 10px 12px;
+  cursor: pointer;
+  color: rgb(240, 244, 248);
+  backdrop-filter: blur(20px);
+  border: none;
+  margin-bottom: 80px;
+  outline: 1px solid rgb(240, 244, 248);
+
+}
+
+.not-found__link:hover {
+  opacity: 0.8;
+  box-shadow: 0 0 15px rgb(244 244 244 / 70%);
+}
+
+.not-found__link:active {
+  outline: none;
 }
